@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">DatingApp</string>
     <string name="hello_world">Hello World!</string>
+    <string name="enter_name">Enter Your Name</string>
+    <string name="enter_email">Enter Your Email</string>
+    <string name="enter_username">Enter Your Username</string>
+    <string name="enter_age">Enter Your Age</string>
+    <string name="name_date_text">Brown, Lenny 4/21/20</string>
+    <string name="submit_text">Submit</string>
 </resources>
