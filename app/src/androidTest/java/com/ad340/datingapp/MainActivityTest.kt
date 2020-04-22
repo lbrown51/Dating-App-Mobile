@@ -27,6 +27,9 @@ class MainActivityTest {
     fun hasTextOnScreen() {
         onView(withId(R.id.hello_text))
             .check(matches(withText(R.string.hello_world)))
+
+        onView(withId(R.id.name_date))
+            .check(matches(withText(R.string.name_date_text)))
     }
 
     @Test
