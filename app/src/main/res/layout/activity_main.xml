@@ -76,7 +76,7 @@
 
 
     <Button
-        android:id="@+id/submit_profile"
+        android:id="@+id/submit_profile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/item_spacing"

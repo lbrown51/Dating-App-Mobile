@@ -2,22 +2,24 @@ package com.ad340.datingapp
 
 import android.view.View
 import android.widget.DatePicker
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.PickerActions
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+
 
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
-import androidx.test.espresso.contrib.PickerActions
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -90,5 +92,33 @@ class MainActivityTest {
         onView(withId(R.id.date_of_birth))
             .perform(PickerActions.setDate(2010, 12, 5))
             .check(matches(withDate(2010, 12, 5)))
+    }
+
+    @Test
+    fun canGoToProfileWithInfo() {
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
+
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth))
+            .perform(PickerActions.setDate(2010, 12, 5), closeSoftKeyboard())
+
+        try {
+            Intents.init()
+
+            onView(withId(R.id.submit_profile_btn)).perform(click())
+            // intended(hasComponent(ProfileActivity::class.simpleName))
+        } finally {
+            Intents.release()
+        }
+
     }
 }
