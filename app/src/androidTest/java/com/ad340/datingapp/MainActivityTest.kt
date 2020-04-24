@@ -118,7 +118,8 @@ class MainActivityTest {
         try {
             Intents.init()
 
-            onView(withId(R.id.submit_profile_btn)).perform(click())
+            onView(withResourceName("submit_profile_btn")).perform(click())
+
             intended(allOf(
                 hasExtraWithKey(Constants.KEY_NAME),
                 hasExtraWithKey(Constants.KEY_EMAIL),

@@ -80,11 +80,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/item_spacing"
+        android:onClick="goToProfileActivity"
         android:text="@string/submit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_of_birth"
-        android:onClick="goToProfileActivity"/>
+        app:layout_constraintTop_toBottomOf="@+id/date_of_birth" />
 
     <TextView
         android:id="@+id/name_date"
