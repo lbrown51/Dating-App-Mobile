@@ -16,7 +16,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         val thanksText = findViewById<TextView>(R.id.signup_thanks_text)
 
-        val msgText = "Thanks for Signing Up "
+        val msgText = "Thanks for Signing Up \n"
         val msg = StringBuilder(msgText)
         val b = intent.extras
 

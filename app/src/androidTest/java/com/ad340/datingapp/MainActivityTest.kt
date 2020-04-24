@@ -120,6 +120,8 @@ class MainActivityTest {
             Intents.init()
 
             onView(withId(R.id.name_date)).perform(scrollTo())
+            Thread.sleep(1000);
+
             onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
             onView(withId(R.id.submit_profile_btn)).perform(click())
 
