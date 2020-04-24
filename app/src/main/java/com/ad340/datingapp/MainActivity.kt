@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         )
         bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 }

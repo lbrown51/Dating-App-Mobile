@@ -1,5 +1,6 @@
 package com.ad340.datingapp
 
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import androidx.test.espresso.Espresso.onView
@@ -15,6 +16,9 @@ import org.hamcrest.TypeSafeMatcher
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import org.hamcrest.core.AllOf.allOf
 
 
 import org.junit.Rule
@@ -115,7 +119,14 @@ class MainActivityTest {
             Intents.init()
 
             onView(withId(R.id.submit_profile_btn)).perform(click())
-            // intended(hasComponent(ProfileActivity::class.simpleName))
+            intended(allOf(
+                hasExtraWithKey(Constants.KEY_NAME),
+                hasExtraWithKey(Constants.KEY_EMAIL),
+                hasExtraWithKey(Constants.KEY_USERNAME),
+                hasExtraWithKey(Constants.KEY_AGE),
+                hasExtraWithKey(Constants.KEY_DOB)
+            ))
+            //intended(hasComponent(ProfileActivity::class.simpleName))
         } finally {
             Intents.release()
         }
