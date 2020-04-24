@@ -95,6 +95,7 @@ class MainActivityTest {
 
         onView(withId(R.id.date_of_birth))
             .perform(PickerActions.setDate(2010, 12, 5))
+            .perform(closeSoftKeyboard())
             .check(matches(withDate(2010, 12, 5)))
     }
 
@@ -119,7 +120,14 @@ class MainActivityTest {
             Intents.init()
 
             onView(withId(R.id.submit_profile_btn)).check(matches(isCompletelyDisplayed()))
-            onView(withId(R.id.submit_profile_btn)).perform(scrollTo(), click())
+            onView(withId(R.id.name_edit_text)).perform(closeSoftKeyboard())
+            onView(withId(R.id.email_edit_text)).perform(closeSoftKeyboard())
+            onView(withId(R.id.username_edit_text)).perform(closeSoftKeyboard())
+            onView(withId(R.id.age_edit_text)).perform(closeSoftKeyboard())
+            onView(withId(R.id.date_of_birth)).perform(closeSoftKeyboard())
+            onView(withId(R.id.submit_profile_btn))
+                .perform(scrollTo())
+                .perform(click())
 
             intended(allOf(
                 hasExtraWithKey(Constants.KEY_NAME),
