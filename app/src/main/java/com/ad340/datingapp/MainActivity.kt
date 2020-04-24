@@ -15,9 +15,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val res = resources.getResourceName(R.id.submit_profile_btn)
-        println(res)
     }
 
     fun goToProfileActivity(view: View) {

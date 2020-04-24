@@ -100,8 +100,6 @@ class MainActivityTest {
 
     @Test
     fun canGoToProfileWithInfo() {
-        onView(withId(R.id.submit_profile_btn)).check(matches(isCompletelyDisplayed()))
-
         onView(withId(R.id.name_edit_text))
             .perform(typeText("Bob Doe"), closeSoftKeyboard())
 
@@ -120,6 +118,7 @@ class MainActivityTest {
         try {
             Intents.init()
 
+            onView(withId(R.id.submit_profile_btn)).check(matches(isCompletelyDisplayed()))
             onView(withId(R.id.submit_profile_btn)).perform(scrollTo(), click())
 
             intended(allOf(
