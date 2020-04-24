@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/signup_thanks_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:text="TextView"
+        android:layout_marginTop="@dimen/signup_text_margin_top"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/thanks_text_size"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

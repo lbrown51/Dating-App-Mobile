@@ -20,7 +20,7 @@ class ProfileActivityTest {
 
     @Test
     fun componentIsDisplayed() {
-        onView(withId(R.id.textView))
+        onView(withId(R.id.signup_thanks_text))
             .check(matches(isDisplayed()))
     }
 }
