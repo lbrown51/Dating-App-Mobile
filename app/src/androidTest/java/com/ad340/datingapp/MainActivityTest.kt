@@ -120,7 +120,7 @@ class MainActivityTest {
         try {
             Intents.init()
 
-            onView(withText("Submit")).perform(click())
+            onView(withId(R.id.submit_profile_btn)).perform(scrollTo(), click())
 
             intended(allOf(
                 hasExtraWithKey(Constants.KEY_NAME),
