@@ -100,6 +100,8 @@ class MainActivityTest {
 
     @Test
     fun canGoToProfileWithInfo() {
+        onView(withId(R.id.submit_profile_btn)).check(matches(isCompletelyDisplayed()))
+
         onView(withId(R.id.name_edit_text))
             .perform(typeText("Bob Doe"), closeSoftKeyboard())
 
@@ -115,22 +117,22 @@ class MainActivityTest {
         onView(withId(R.id.date_of_birth))
             .perform(PickerActions.setDate(2010, 12, 5), closeSoftKeyboard())
 
-//        try {
-//            Intents.init()
-//
-//            onView(withResourceName("submit_profile_btn")).perform(click())
-//
-//            intended(allOf(
-//                hasExtraWithKey(Constants.KEY_NAME),
-//                hasExtraWithKey(Constants.KEY_EMAIL),
-//                hasExtraWithKey(Constants.KEY_USERNAME),
-//                hasExtraWithKey(Constants.KEY_AGE),
-//                hasExtraWithKey(Constants.KEY_DOB)
-//            ))
-//            //intended(hasComponent(ProfileActivity::class.simpleName))
-//        } finally {
-//            Intents.release()
-//        }
+        try {
+            Intents.init()
+
+            onView(withText("Submit")).perform(click())
+
+            intended(allOf(
+                hasExtraWithKey(Constants.KEY_NAME),
+                hasExtraWithKey(Constants.KEY_EMAIL),
+                hasExtraWithKey(Constants.KEY_USERNAME),
+                hasExtraWithKey(Constants.KEY_AGE),
+                hasExtraWithKey(Constants.KEY_DOB)
+            ))
+            //intended(hasComponent(ProfileActivity::class.simpleName))
+        } finally {
+            Intents.release()
+        }
 
     }
 }
