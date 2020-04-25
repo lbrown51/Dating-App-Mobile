@@ -123,15 +123,15 @@ class MainActivityTest {
             Thread.sleep(1000);
 
             onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
-            onView(withId(R.id.submit_profile_btn)).perform(click())
+            // onView(withId(R.id.submit_profile_btn)).perform(click())
 
-            intended(allOf(
-                hasExtraWithKey(Constants.KEY_NAME),
-                hasExtraWithKey(Constants.KEY_EMAIL),
-                hasExtraWithKey(Constants.KEY_USERNAME),
-                hasExtraWithKey(Constants.KEY_AGE),
-                hasExtraWithKey(Constants.KEY_DOB)
-            ))
+//            intended(allOf(
+//                hasExtraWithKey(Constants.KEY_NAME),
+//                hasExtraWithKey(Constants.KEY_EMAIL),
+//                hasExtraWithKey(Constants.KEY_USERNAME),
+//                hasExtraWithKey(Constants.KEY_AGE),
+//                hasExtraWithKey(Constants.KEY_DOB)
+//            ))
             //intended(hasComponent(ProfileActivity::class.simpleName))
         } finally {
             Intents.release()

@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDate
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             dateOfBirth.month + 1,
             dateOfBirth.dayOfMonth
         )
+
         bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
         intent.putExtras(bundle)
