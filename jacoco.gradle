@@ -24,8 +24,7 @@ def excludes = [
         '**/*_MembersInjector.*',
         '**/*_LifecycleAdapter.*',
         '**/models/**',
-        '**/Constants.class',
-        '**/Constants.kt'
+        'app/src/main/java/com/ad340/datingapp/Constants.kt'
 ]
 
 def javaClasses = fileTree(
