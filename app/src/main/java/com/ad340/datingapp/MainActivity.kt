@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDate
 import java.util.*
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun goToProfileActivity(view: View) {
+    fun goToProfileActivity() {
         val intent = Intent(this, ProfileActivity::class.java)
         val bundle = Bundle()
 
@@ -42,9 +43,23 @@ class MainActivity : AppCompatActivity() {
             dateOfBirth.dayOfMonth
         )
 
+        val dob = LocalDate.of(
+            dateOfBirth.year,
+            dateOfBirth.month,
+            dateOfBirth.dayOfMonth
+        )
         bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
-        intent.putExtras(bundle)
-        startActivity(intent)
+        val eighteenYears = dob.plusYears(18)
+        val now = LocalDate.now()
+        val oldEnough = now.isAfter(eighteenYears)
+        
+        if (oldEnough) {
+            intent.putExtras(bundle)
+            startActivity(intent)
+        } else {
+            val signupProblem = findViewById<TextView>(R.id.signup_problem_text)
+            signupProblem.text = getString(R.string.not_old_enough)
+        }
     }
 }

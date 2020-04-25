@@ -101,26 +101,17 @@ class MainActivityTest {
 
     @Test
     fun canGoToProfileWithInfo() {
-        onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
-
-        onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-
         onView(withId(R.id.username_edit_text))
             .perform(typeText("bdoe"), closeSoftKeyboard())
 
-        onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
-
         onView(withId(R.id.date_of_birth))
-            .perform(PickerActions.setDate(2010, 12, 5), closeSoftKeyboard())
+            .perform(PickerActions.setDate(2000, 12, 5), closeSoftKeyboard())
 
         try {
             Intents.init()
 
             onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
-            Thread.sleep(1000);
+            Thread.sleep(1000)
 
             onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
             onView(withId(R.id.submit_profile_btn)).perform(click())
@@ -137,5 +128,22 @@ class MainActivityTest {
             Intents.release()
         }
 
+    }
+
+    @Test
+    fun stoppedWhenNotOldEnough() {
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth))
+            .perform(PickerActions.setDate(2019, 12, 5), closeSoftKeyboard())
+
+        onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
+
+        onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+        onView(withId(R.id.submit_profile_btn)).perform(click())
+
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.not_old_enough)))
     }
 }

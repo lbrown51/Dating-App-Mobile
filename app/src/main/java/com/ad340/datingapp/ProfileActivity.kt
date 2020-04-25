@@ -28,6 +28,6 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        thanksText.setText(msg)
+        thanksText.text = msg
     }
 }
