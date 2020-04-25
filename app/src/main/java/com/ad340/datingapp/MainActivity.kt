@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun goToProfileActivity() {
+    fun goToProfileActivity(view: View) {
         val intent = Intent(this, ProfileActivity::class.java)
         val bundle = Bundle()
 
