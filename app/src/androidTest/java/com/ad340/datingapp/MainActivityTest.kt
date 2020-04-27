@@ -72,32 +72,47 @@ class MainActivityTest {
             .check(matches(withText("25")))
     }
 
-//    @Test
-//    fun canEnterDate() {
-//
-//        fun withDate(year: Int, month: Int, day: Int): Matcher<View> {
-//            return object: TypeSafeMatcher<View>() {
-//                override fun describeTo(description: Description?) {
-//                    description?.appendText("matches date:")
-//                }
-//
-//                override fun matchesSafely(item: View): Boolean {
-//                    println("")
-//                    return if (item is DatePicker) {
-//                        val matchesYear = year == (item as DatePicker).year
-//                        val matchesMonth = month == (item as DatePicker).month + 1
-//                        val matchesDay = day == (item as DatePicker).dayOfMonth
-//                        matchesYear && matchesMonth && matchesDay
-//                    } else return false
-//                }
-//            }
-//        }
-//
-//        onView(withId(R.id.date_of_birth))
-//            .perform(PickerActions.setDate(2010, 12, 5))
-//            .perform(closeSoftKeyboard())
-//            .check(matches(withDate(2010, 12, 5)))
-//    }
+    @Test
+    fun canOpenDateOfBirthFragment() {
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        onView(withId(R.id.date_of_birth_fragment))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun canEnterDateAndConfirmDateOfBirth() {
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        fun withDate(year: Int, month: Int, day: Int): Matcher<View> {
+            return object: TypeSafeMatcher<View>() {
+                override fun describeTo(description: Description?) {
+                    description?.appendText("matches date:")
+                }
+
+                override fun matchesSafely(item: View): Boolean {
+                    println("")
+                    return if (item is DatePicker) {
+                        val matchesYear = year == (item as DatePicker).year
+                        val matchesMonth = month == (item as DatePicker).month + 1
+                        val matchesDay = day == (item as DatePicker).dayOfMonth
+                        matchesYear && matchesMonth && matchesDay
+                    } else return false
+                }
+            }
+        }
+
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2010, 12, 5))
+            .perform(closeSoftKeyboard())
+            .check(matches(withDate(2010, 12, 5)))
+
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+    }
+
 
 //    @Test
 //    fun canGoToProfileWithInfo() {

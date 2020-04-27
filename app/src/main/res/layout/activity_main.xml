@@ -100,9 +100,10 @@
             app:layout_constraintTop_toBottomOf="@+id/username_edit_text" />
 
         <Button
-            android:id="@+id/date_of_birth"
+            android:id="@+id/date_of_birth_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
             android:text="@string/select_dob_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +118,7 @@
             android:text="@string/name_date_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_of_birth" />
+            app:layout_constraintTop_toBottomOf="@+id/date_of_birth_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

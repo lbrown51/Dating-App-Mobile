@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
         val age = findViewById<EditText>(R.id.age_edit_text).text.toString()
         bundle.putString(Constants.KEY_AGE, age)
 
-        val selectedDateOfBirth = dateOfBirthMap.values.all { it != 0 }
+        val isDateOfBirthSelected = dateOfBirthMap.values.all { it != 0 }
 
-        if (selectedDateOfBirth) {
+        if (isDateOfBirthSelected) {
             val dateOfBirthArr = intArrayOf(
                 dateOfBirthMap["year"]!!,
                 dateOfBirthMap["month"]!!,
