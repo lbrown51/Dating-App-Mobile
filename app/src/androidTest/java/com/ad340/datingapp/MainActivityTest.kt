@@ -72,63 +72,63 @@ class MainActivityTest {
             .check(matches(withText("25")))
     }
 
-    @Test
-    fun canEnterDate() {
+//    @Test
+//    fun canEnterDate() {
+//
+//        fun withDate(year: Int, month: Int, day: Int): Matcher<View> {
+//            return object: TypeSafeMatcher<View>() {
+//                override fun describeTo(description: Description?) {
+//                    description?.appendText("matches date:")
+//                }
+//
+//                override fun matchesSafely(item: View): Boolean {
+//                    println("")
+//                    return if (item is DatePicker) {
+//                        val matchesYear = year == (item as DatePicker).year
+//                        val matchesMonth = month == (item as DatePicker).month + 1
+//                        val matchesDay = day == (item as DatePicker).dayOfMonth
+//                        matchesYear && matchesMonth && matchesDay
+//                    } else return false
+//                }
+//            }
+//        }
+//
+//        onView(withId(R.id.date_of_birth))
+//            .perform(PickerActions.setDate(2010, 12, 5))
+//            .perform(closeSoftKeyboard())
+//            .check(matches(withDate(2010, 12, 5)))
+//    }
 
-        fun withDate(year: Int, month: Int, day: Int): Matcher<View> {
-            return object: TypeSafeMatcher<View>() {
-                override fun describeTo(description: Description?) {
-                    description?.appendText("matches date:")
-                }
-
-                override fun matchesSafely(item: View): Boolean {
-                    println("")
-                    return if (item is DatePicker) {
-                        val matchesYear = year == (item as DatePicker).year
-                        val matchesMonth = month == (item as DatePicker).month + 1
-                        val matchesDay = day == (item as DatePicker).dayOfMonth
-                        matchesYear && matchesMonth && matchesDay
-                    } else return false
-                }
-            }
-        }
-
-        onView(withId(R.id.date_of_birth))
-            .perform(PickerActions.setDate(2010, 12, 5))
-            .perform(closeSoftKeyboard())
-            .check(matches(withDate(2010, 12, 5)))
-    }
-
-    @Test
-    fun canGoToProfileWithInfo() {
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
-
-        onView(withId(R.id.date_of_birth))
-            .perform(PickerActions.setDate(2000, 12, 5), closeSoftKeyboard())
-
-        try {
-            Intents.init()
-
-            onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
-            Thread.sleep(1000)
-
-            onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
-            onView(withId(R.id.submit_profile_btn)).perform(click())
-
-            intended(allOf(
-                hasExtraWithKey(Constants.KEY_NAME),
-                hasExtraWithKey(Constants.KEY_EMAIL),
-                hasExtraWithKey(Constants.KEY_USERNAME),
-                hasExtraWithKey(Constants.KEY_AGE),
-                hasExtraWithKey(Constants.KEY_DOB)
-            ))
-            //intended(hasComponent(ProfileActivity::class.simpleName))
-        } finally {
-            Intents.release()
-        }
-
-    }
+//    @Test
+//    fun canGoToProfileWithInfo() {
+//        onView(withId(R.id.username_edit_text))
+//            .perform(typeText("bdoe"), closeSoftKeyboard())
+//
+//        onView(withId(R.id.date_of_birth))
+//            .perform(PickerActions.setDate(2000, 12, 5), closeSoftKeyboard())
+//
+//        try {
+//            Intents.init()
+//
+//            onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
+//            Thread.sleep(1000)
+//
+//            onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+//            onView(withId(R.id.submit_profile_btn)).perform(click())
+//
+//            intended(allOf(
+//                hasExtraWithKey(Constants.KEY_NAME),
+//                hasExtraWithKey(Constants.KEY_EMAIL),
+//                hasExtraWithKey(Constants.KEY_USERNAME),
+//                hasExtraWithKey(Constants.KEY_AGE),
+//                hasExtraWithKey(Constants.KEY_DOB)
+//            ))
+//            //intended(hasComponent(ProfileActivity::class.simpleName))
+//        } finally {
+//            Intents.release()
+//        }
+//
+//    }
 
 //    @Test
 //    fun stoppedWhenNotOldEnough() {

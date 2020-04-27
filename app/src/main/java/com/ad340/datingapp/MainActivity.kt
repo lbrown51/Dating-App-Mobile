@@ -2,18 +2,27 @@ package com.ad340.datingapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import java.time.LocalDate
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
+
+
+    private val dateOfBirthMap = mutableMapOf(
+        "day" to 0,
+        "month" to 0,
+        "year" to 0
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,30 +45,54 @@ class MainActivity : AppCompatActivity() {
         val age = findViewById<EditText>(R.id.age_edit_text).text.toString()
         bundle.putString(Constants.KEY_AGE, age)
 
-        val dateOfBirth = findViewById<DatePicker>(R.id.date_of_birth)
-        val dateOfBirthArr = intArrayOf(
-            dateOfBirth.year,
-            dateOfBirth.month + 1,
-            dateOfBirth.dayOfMonth
-        )
+        val selectedDateOfBirth = dateOfBirthMap.values.all { it != 0 }
 
-        val dob = LocalDate.of(
-            dateOfBirth.year,
-            dateOfBirth.month,
-            dateOfBirth.dayOfMonth
-        )
-        bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
+        if (selectedDateOfBirth) {
+            val dateOfBirthArr = intArrayOf(
+                dateOfBirthMap["year"]!!,
+                dateOfBirthMap["month"]!!,
+                dateOfBirthMap["day"]!!
+            )
 
-        val eighteenYears = dob.plusYears(18)
-        val now = LocalDate.now()
-        val oldEnough = now.isAfter(eighteenYears)
-        
-        if (oldEnough) {
-            intent.putExtras(bundle)
-            startActivity(intent)
+            bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
+
+            val dob = LocalDate.of(
+                dateOfBirthMap["year"]!!,
+                dateOfBirthMap["month"]!!,
+                dateOfBirthMap["day"]!!
+            )
+
+            val eighteenYears = dob.plusYears(18)
+            val now = LocalDate.now()
+            val oldEnough = now.isAfter(eighteenYears)
+
+            if (oldEnough) {
+                intent.putExtras(bundle)
+                startActivity(intent)
+            } else {
+                val signupProblem = findViewById<TextView>(R.id.signup_problem_text)
+                signupProblem.text = getString(R.string.not_old_enough)
+            }
         } else {
             val signupProblem = findViewById<TextView>(R.id.signup_problem_text)
-            signupProblem.text = getString(R.string.not_old_enough)
+            signupProblem.text = getString(R.string.dob_not_selected)
         }
+    }
+
+    fun showDateOfBirthPickerDialog(view: View) {
+        val newFragment = DateOfBirthPickerFragment()
+        newFragment.show(supportFragmentManager, "dobPicker")
+    }
+
+    fun onDateClick(view: View) {
+        println("Hello")
+        val dobPicker = (view.parent as ViewGroup).getChildAt(0)
+        dateOfBirthMap["day"] = (dobPicker as DatePicker).dayOfMonth
+        dateOfBirthMap["month"] = (dobPicker as DatePicker).month + 1
+        dateOfBirthMap["year"] = (dobPicker as DatePicker).year
+
+        val dobFragment = supportFragmentManager
+            .findFragmentByTag("dobPicker")
+        (dobFragment as DialogFragment).dismiss()
     }
 }

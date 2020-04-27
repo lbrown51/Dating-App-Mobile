@@ -8,4 +8,10 @@
     <string name="name_date_text">Brown, Lenny 4/21/20</string>
     <string name="submit_text">Submit</string>
     <string name="not_old_enough">You are not old enough!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_dob_text">Select Date of Birth</string>
+    <string name="confirm_dob_text">Confirm</string>
+    <string name="dob_not_selected">You did not select a date of birth!</string>
 </resources>
