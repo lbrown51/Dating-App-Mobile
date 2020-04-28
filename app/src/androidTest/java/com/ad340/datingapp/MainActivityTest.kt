@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.DatePicker
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -272,6 +273,16 @@ class MainActivityTest {
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.no_email_entered)))
         onView(withId(R.id.email_edit_text))
+            .perform(typeText("testEmail"), closeSoftKeyboard())
+
+        // Check wrong email format signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.email_not_valid)))
+        onView(withId(R.id.email_edit_text))
             .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
 
         // Check no username signup problem
@@ -301,6 +312,57 @@ class MainActivityTest {
             .perform(click())
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.dob_not_selected)))
+    }
+
+    @Test
+    fun canClearInputsOnResume() {
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2000, 12, 5))
+            .perform(closeSoftKeyboard())
+
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+        onView(withId(R.id.submit_profile_btn)).perform(click())
+
+        Thread.sleep(1000)
+        Espresso.pressBack()
+        Thread.sleep(1000)
+
+        onView(withId(R.id.hello_text))
+            .check(matches(withText(R.string.hello_world)))
+
+        onView(withId(R.id.name_edit_text))
+            .check(matches(withHint(R.string.enter_name)))
+
+        onView(withId(R.id.email_edit_text))
+            .check(matches(withHint(R.string.enter_email)))
+
+        onView(withId(R.id.username_edit_text))
+            .check(matches(withHint(R.string.enter_username)))
+
+        onView(withId(R.id.age_edit_text))
+            .check(matches(withHint(R.string.enter_age)))
+
+        onView(withId(R.id.date_of_birth_btn))
+            .check(matches(withText(R.string.select_dob_text)))
     }
 
 }
