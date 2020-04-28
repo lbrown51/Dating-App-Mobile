@@ -114,36 +114,43 @@ class MainActivityTest {
     }
 
 
-//    @Test
-//    fun canGoToProfileWithInfo() {
-//        onView(withId(R.id.username_edit_text))
-//            .perform(typeText("bdoe"), closeSoftKeyboard())
-//
-//        onView(withId(R.id.date_of_birth))
-//            .perform(PickerActions.setDate(2000, 12, 5), closeSoftKeyboard())
-//
-//        try {
-//            Intents.init()
-//
-//            onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
-//            Thread.sleep(1000)
-//
-//            onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
-//            onView(withId(R.id.submit_profile_btn)).perform(click())
-//
-//            intended(allOf(
-//                hasExtraWithKey(Constants.KEY_NAME),
-//                hasExtraWithKey(Constants.KEY_EMAIL),
-//                hasExtraWithKey(Constants.KEY_USERNAME),
-//                hasExtraWithKey(Constants.KEY_AGE),
-//                hasExtraWithKey(Constants.KEY_DOB)
-//            ))
-//            //intended(hasComponent(ProfileActivity::class.simpleName))
-//        } finally {
-//            Intents.release()
-//        }
-//
-//    }
+    @Test
+    fun canGoToProfileWithInfo() {
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2000, 12, 5))
+            .perform( closeSoftKeyboard())
+
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        try {
+            Intents.init()
+
+            onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
+            Thread.sleep(1000)
+
+            onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+            onView(withId(R.id.submit_profile_btn)).perform(click())
+
+            intended(allOf(
+                hasExtraWithKey(Constants.KEY_NAME),
+                hasExtraWithKey(Constants.KEY_EMAIL),
+                hasExtraWithKey(Constants.KEY_USERNAME),
+                hasExtraWithKey(Constants.KEY_AGE),
+                hasExtraWithKey(Constants.KEY_DOB)
+            ))
+            //intended(hasComponent(ProfileActivity::class.simpleName))
+        } finally {
+            Intents.release()
+        }
+
+    }
 
 //    @Test
 //    fun stoppedWhenNotOldEnough() {
