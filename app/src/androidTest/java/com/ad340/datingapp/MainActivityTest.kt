@@ -161,12 +161,16 @@ class MainActivityTest {
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
 
+        Thread.sleep(2000)
+
         onView(withId(R.id.date_of_birth_picker))
             .perform(PickerActions.setDate(2000, 12, 5))
             .perform( closeSoftKeyboard())
 
         onView(withId(R.id.confirm_date_of_birth_btn))
             .perform(click())
+
+        Thread.sleep(2000)
 
         try {
             Intents.init()
