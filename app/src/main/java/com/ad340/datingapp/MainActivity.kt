@@ -2,10 +2,9 @@ package com.ad340.datingapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TextView
@@ -27,6 +26,37 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        Log.i(TAG, "onRestoreInstanceState()")
+        if (savedInstanceState.containsKey(Constants.KEY_DOB)) {
+            val dateOfBirthArr= savedInstanceState.getIntArray(Constants.KEY_DOB)
+            if (dateOfBirthArr != null) {
+                dateOfBirthMap["year"] = dateOfBirthArr[0]
+                dateOfBirthMap["month"] = dateOfBirthArr[1]
+                dateOfBirthMap["day"] = dateOfBirthArr[2]
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState);
+
+        Log.i(TAG, "onSaveInstanceState()")
+        val isDateOfBirthSelected = dateOfBirthMap.values.all { it != 0 }
+
+        if (isDateOfBirthSelected) {
+            val dateOfBirthArr = intArrayOf(
+                dateOfBirthMap["year"]!!,
+                dateOfBirthMap["month"]!!,
+                dateOfBirthMap["day"]!!
+            )
+
+            outState.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
+        }
     }
 
     fun goToProfileActivity(view: View) {
