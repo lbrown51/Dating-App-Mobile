@@ -14,15 +14,16 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         val thanksText = findViewById<TextView>(R.id.signup_thanks_text)
 
-        val msgText = "Thanks for Signing Up \n"
+        val msgText = getString(R.string.signup_thanks)
         val msg = StringBuilder(msgText)
+        msg.append("\n")
+
         val b = intent.extras
 
         if (b != null) {
             if (b.containsKey(Constants.KEY_USERNAME)) {
                 val username = b.getString(Constants.KEY_USERNAME)
                 msg.append(username)
-                Log.i(TAG, "Username: $username")
             }
         }
 

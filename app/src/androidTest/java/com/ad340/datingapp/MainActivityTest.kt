@@ -172,8 +172,14 @@ class MainActivityTest {
 
     @Test
     fun canGoToProfileWithInfo() {
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
         onView(withId(R.id.username_edit_text))
             .perform(typeText("bdoe"), closeSoftKeyboard())
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
 
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
@@ -217,9 +223,15 @@ class MainActivityTest {
 
     @Test
     fun stoppedWhenNotOldEnough() {
-
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
         onView(withId(R.id.username_edit_text))
             .perform(typeText("bdoe"), closeSoftKeyboard())
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
+
 
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
@@ -241,16 +253,52 @@ class MainActivityTest {
     }
 
     @Test
-    fun stoppedNoDateOfBirthSelected() {
-
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
-
+    fun stoppedInputProblem() {
+        // Check no name signup problem
         onView(withId(R.id.submit_profile_btn))
             .perform(scrollTo())
             .check(matches(isDisplayingAtLeast(90)))
             .perform(click())
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.no_name_entered)))
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
 
+        // Check no email signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.no_email_entered)))
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
+
+        // Check no username signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.no_username_entered)))
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        // Check no age signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.no_age_entered)))
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
+
+        // Check no date of birth signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.dob_not_selected)))
     }
