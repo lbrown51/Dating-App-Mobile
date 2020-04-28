@@ -152,20 +152,43 @@ class MainActivityTest {
 
     }
 
-//    @Test
-//    fun stoppedWhenNotOldEnough() {
-//        onView(withId(R.id.username_edit_text))
-//            .perform(typeText("bdoe"), closeSoftKeyboard())
-//
-//        onView(withId(R.id.date_of_birth))
-//            .perform(PickerActions.setDate(2019, 12, 5), closeSoftKeyboard())
-//
-//        onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
-//
-//        onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
-//        onView(withId(R.id.submit_profile_btn)).perform(click())
-//
-//        onView(withId(R.id.signup_problem_text))
-//            .check(matches(withText(R.string.not_old_enough)))
-//    }
+    @Test
+    fun stoppedWhenNotOldEnough() {
+
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2019, 12, 5))
+            .perform( closeSoftKeyboard())
+
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.not_old_enough)))
+    }
+
+    @Test
+    fun stoppedNoDateOfBirthSelected() {
+
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.dob_not_selected)))
+    }
 }
