@@ -1,7 +1,6 @@
 package com.ad340.datingapp
 
 import android.content.Context
-import android.util.Log
 import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.DatePicker
@@ -11,7 +10,6 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -181,12 +179,15 @@ class MainActivityTest {
             onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
             onView(withId(R.id.submit_profile_btn)).perform(click())
 
+            val dateOfBirthArr = intArrayOf(2000, 12, 5)
+
             intended(allOf(
                 hasExtraWithKey(Constants.KEY_NAME),
                 hasExtraWithKey(Constants.KEY_EMAIL),
                 hasExtraWithKey(Constants.KEY_USERNAME),
                 hasExtraWithKey(Constants.KEY_AGE),
-                hasExtraWithKey(Constants.KEY_DOB)
+                hasExtraWithKey(Constants.KEY_DOB),
+                hasExtra(Constants.KEY_DOB, dateOfBirthArr)
             ))
             //intended(hasComponent(ProfileActivity::class.simpleName))
         } finally {
