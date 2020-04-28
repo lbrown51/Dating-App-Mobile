@@ -1,8 +1,11 @@
 package com.ad340.datingapp
 
+import android.content.Context
 import android.util.Log
+import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.DatePicker
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -17,6 +20,7 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.*
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.rule.ActivityTestRule
 import org.hamcrest.core.AllOf.allOf
 
 
@@ -26,7 +30,8 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
-    @get:Rule var activityScenarioRule = activityScenarioRule<MainActivity>()
+    @get:Rule
+    val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun hasTextOnScreen() {
@@ -112,6 +117,41 @@ class MainActivityTest {
             .perform(click())
     }
 
+    @Test
+    fun canResistDataLossOnOrientationChange() {
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+            .check(matches(withText("Bob Doe")))
+
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
+            .check(matches(withText("bdoe@gmail.com")))
+
+        onView(withId(R.id.username_edit_text))
+            .perform(typeText("bdoe"), closeSoftKeyboard())
+            .check(matches(withText("bdoe")))
+
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText("25"), closeSoftKeyboard())
+            .check(matches(withText("25")))
+
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2000, 12, 5))
+            .perform( closeSoftKeyboard())
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val activity = activityRule.activity
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        onView(withId(R.id.submit_profile_btn)).perform(click())
+
+        onView(withId(R.id.signup_thanks_text))
+            .check(matches(isDisplayed()))
+    }
 
     @Test
     fun canGoToProfileWithInfo() {
