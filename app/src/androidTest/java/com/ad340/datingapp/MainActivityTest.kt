@@ -162,7 +162,9 @@ class MainActivityTest {
         val activity = activityRule.activity
         activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        onView(withId(R.id.submit_profile_btn)).perform(click())
+        onView(withId(R.id.submit_profile_btn))
+            .perform((scrollTo()))
+            .perform(click())
 
         onView(withId(R.id.signup_thanks_text))
             .check(matches(isDisplayed()))

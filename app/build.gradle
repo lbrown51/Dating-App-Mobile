@@ -36,6 +36,13 @@ android {
         jvmTarget = "1.8"
     }
 
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
 }
 
 dependencies {

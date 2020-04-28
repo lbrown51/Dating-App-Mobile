@@ -27,25 +27,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/submit_profile_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/item_spacing"
-            android:onClick="goToProfileActivity"
-            android:text="@string/submit_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hello_text" />
-
         <TextView
             android:id="@+id/signup_problem_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
             android:textColor="@android:color/holo_red_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/submit_profile_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/hello_text" />
 
         <EditText
             android:id="@+id/name_edit_text"
@@ -110,6 +100,17 @@
             app:layout_constraintTop_toBottomOf="@+id/age_edit_text"
             android:onClick="showDateOfBirthPickerDialog" />
 
+        <Button
+            android:id="@+id/submit_profile_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:onClick="goToProfileActivity"
+            android:text="@string/submit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_of_birth_btn" />
+
         <TextView
             android:id="@+id/name_date"
             android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
             android:text="@string/name_date_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_of_birth_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/submit_profile_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
