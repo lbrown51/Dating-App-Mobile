@@ -135,6 +135,12 @@ class MainActivityTest {
     }
 
     @Test
+    fun canRotateScreen() {
+        val activity = activityRule.activity
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+
+    @Test
     fun canResistDataLossOnOrientationChange() {
         onView(withId(R.id.name_edit_text))
             .perform(typeText("Bob Doe"), closeSoftKeyboard())
