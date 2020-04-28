@@ -116,6 +116,23 @@ class MainActivityTest {
     }
 
     @Test
+    fun validateDateOfBirthMap() {
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2000, 12, 5))
+            .perform( closeSoftKeyboard())
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        val dateOfBirthMap = activityRule.activity.getDateOfBirthMap()
+
+        assert(dateOfBirthMap["year"] == 2000)
+        assert(dateOfBirthMap["month"] == 12)
+        assert(dateOfBirthMap["year"] == 5)
+    }
+
+    @Test
     fun canResistDataLossOnOrientationChange() {
         onView(withId(R.id.name_edit_text))
             .perform(typeText("Bob Doe"), closeSoftKeyboard())
@@ -235,4 +252,5 @@ class MainActivityTest {
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.dob_not_selected)))
     }
+
 }

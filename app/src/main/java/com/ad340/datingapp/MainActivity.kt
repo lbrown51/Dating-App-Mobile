@@ -125,4 +125,6 @@ class MainActivity : AppCompatActivity() {
             .findFragmentByTag("dobPicker")
         (dobFragment as DialogFragment).dismiss()
     }
+
+    fun getDateOfBirthMap(): MutableMap<String, Int> = dateOfBirthMap
 }
