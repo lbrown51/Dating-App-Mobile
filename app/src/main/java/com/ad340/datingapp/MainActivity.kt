@@ -29,20 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        findViewById<EditText>(R.id.name_edit_text).setText("")
-        findViewById<EditText>(R.id.email_edit_text).setText("")
-        findViewById<EditText>(R.id.username_edit_text).setText("")
-        findViewById<EditText>(R.id.age_edit_text).setText("")
-
-        findViewById<Button>(R.id.date_of_birth_btn).setText(R.string.select_dob_text)
-        dateOfBirthMap[Constants.KEY_YEAR] = 0
-        dateOfBirthMap[Constants.KEY_MONTH] = 0
-        dateOfBirthMap[Constants.KEY_DAY] = 0
-    }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 

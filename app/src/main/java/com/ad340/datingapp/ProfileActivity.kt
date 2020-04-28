@@ -1,9 +1,10 @@
 package com.ad340.datingapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -28,6 +29,20 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         thanksText.text = msg
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed() // this can go before or after your stuff below
+        // do your stuff when the back button is pressed
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        // super.onBackPressed(); calls finish(); for you
+
+        // clear your SharedPreferences
+        getSharedPreferences("preferenceName", 0).edit().clear().apply()
     }
 
     fun onDateClick() {}
