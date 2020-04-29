@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
@@ -48,10 +47,11 @@ class MainActivity : AppCompatActivity() {
         val isDateOfBirthSelected = dateOfBirthMap.values.all { it != 0 }
 
         if (isDateOfBirthSelected) {
+
             val dateOfBirthArr = intArrayOf(
-                dateOfBirthMap[Constants.KEY_YEAR]!!,
-                dateOfBirthMap[Constants.KEY_MONTH]!!,
-                dateOfBirthMap[Constants.KEY_DAY]!!
+                dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
+                dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
+                dateOfBirthMap[Constants.KEY_DAY] ?: 0
             )
 
             outState.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
@@ -84,17 +84,17 @@ class MainActivity : AppCompatActivity() {
                 bundle.putString(Constants.KEY_AGE, age)
 
                 val dateOfBirthArr = intArrayOf(
-                    dateOfBirthMap[Constants.KEY_YEAR]!!,
-                    dateOfBirthMap[Constants.KEY_MONTH]!!,
-                    dateOfBirthMap[Constants.KEY_DAY]!!
+                    dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
+                    dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
+                    dateOfBirthMap[Constants.KEY_DAY] ?: 0
                 )
 
                 bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
                 val dob = LocalDate.of(
-                    dateOfBirthMap[Constants.KEY_YEAR]!!,
-                    dateOfBirthMap[Constants.KEY_MONTH]!!,
-                    dateOfBirthMap[Constants.KEY_DAY]!!
+                    dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
+                    dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
+                    dateOfBirthMap[Constants.KEY_DAY] ?: 0
                 )
 
                 val eighteenYears = dob.plusYears(Constants.LEGAL_YEAR)
