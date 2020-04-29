@@ -16,11 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
 
-
     private val dateOfBirthMap = mutableMapOf(
-        Constants.KEY_DAY to 0,
-        Constants.KEY_MONTH to 0,
-        Constants.KEY_YEAR to 0
+        Constants.KEY_DAY to 1,
+        Constants.KEY_MONTH to 1,
+        Constants.KEY_YEAR to 1
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         if (isDateOfBirthSelected) {
 
-            val dateOfBirthArr = intArrayOf(
-                dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
-                dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
-                dateOfBirthMap[Constants.KEY_DAY] ?: 0
-            )
+            val dateOfBirthArr = getDateOfBirthArr()
 
             outState.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
         }
@@ -83,19 +78,11 @@ class MainActivity : AppCompatActivity() {
                 bundle.putString(Constants.KEY_USERNAME, username)
                 bundle.putString(Constants.KEY_AGE, age)
 
-                val dateOfBirthArr = intArrayOf(
-                    dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
-                    dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
-                    dateOfBirthMap[Constants.KEY_DAY] ?: 0
-                )
+                val dateOfBirthArr = getDateOfBirthArr()
 
                 bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
-                val dob = LocalDate.of(
-                    dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
-                    dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
-                    dateOfBirthMap[Constants.KEY_DAY] ?: 0
-                )
+                val dob = getDateOfBirthLocalDate()
 
                 val eighteenYears = dob.plusYears(Constants.LEGAL_YEAR)
                 val now = LocalDate.now()
@@ -143,6 +130,18 @@ class MainActivity : AppCompatActivity() {
     fun isEmailInvalid(email: String): Boolean {
         return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
+
+    fun getDateOfBirthArr() = intArrayOf(
+        dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
+        dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
+        dateOfBirthMap[Constants.KEY_DAY] ?: 0
+    )
+
+    fun getDateOfBirthLocalDate() = LocalDate.of(
+        dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
+        dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
+        dateOfBirthMap[Constants.KEY_DAY] ?: 0
+    )
 
     fun getDateOfBirthMap(): MutableMap<String, Int> = dateOfBirthMap
 }

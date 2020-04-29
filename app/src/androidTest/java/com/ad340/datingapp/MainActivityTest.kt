@@ -26,6 +26,7 @@ import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -118,7 +119,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun validateDateOfBirthMap() {
+    fun validateDateOfBirthFuncs() {
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
         onView(withId(R.id.date_of_birth_picker))
@@ -131,7 +132,34 @@ class MainActivityTest {
 
         assert(dateOfBirthMap["year"] == 2000)
         assert(dateOfBirthMap["month"] == 12)
-        assert(dateOfBirthMap["year"] == 5)
+        assert(dateOfBirthMap["day"] == 5)
+
+        val dateOfBirthArr = activityRule.activity.getDateOfBirthArr()
+        assert(dateOfBirthArr[0] == 2000)
+        assert(dateOfBirthArr[1] == 12)
+        assert(dateOfBirthArr[2] == 5)
+
+        val dateOfBirthLocalDate = activityRule.activity.getDateOfBirthLocalDate()
+        val testLocalDate = LocalDate.of(2000, 12, 5)
+        assert(dateOfBirthLocalDate.equals(testLocalDate))
+    }
+
+    @Test
+    fun validateNullDateOfBirthFuncs() {
+        val dateOfBirthMap = activityRule.activity.getDateOfBirthMap()
+
+        assert(dateOfBirthMap["year"] == 1)
+        assert(dateOfBirthMap["month"] == 1)
+        assert(dateOfBirthMap["day"] == 1)
+
+        val dateOfBirthArr = activityRule.activity.getDateOfBirthArr()
+        assert(dateOfBirthArr[0] == 1)
+        assert(dateOfBirthArr[1] == 1)
+        assert(dateOfBirthArr[2] == 1)
+
+        val dateOfBirthLocalDate = activityRule.activity.getDateOfBirthLocalDate()
+        val testLocalDate = LocalDate.of(1, 1, 1)
+        assert(dateOfBirthLocalDate.equals(testLocalDate))
     }
 
     @Test
