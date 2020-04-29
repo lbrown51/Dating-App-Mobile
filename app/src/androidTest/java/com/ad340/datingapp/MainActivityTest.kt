@@ -279,19 +279,19 @@ class MainActivityTest {
 
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
-
+        Thread.sleep(1000)
         onView(withId(R.id.date_of_birth_picker))
             .perform(PickerActions.setDate(2019, 12, 5))
             .perform( closeSoftKeyboard())
-
+        Thread.sleep(1000)
         onView(withId(R.id.confirm_date_of_birth_btn))
             .perform(click())
-
+        Thread.sleep(1000)
         onView(withId(R.id.submit_profile_btn))
             .perform(scrollTo())
             .check(matches(isDisplayingAtLeast(90)))
             .perform(click())
-
+        Thread.sleep(1000)
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.not_old_enough)))
     }
