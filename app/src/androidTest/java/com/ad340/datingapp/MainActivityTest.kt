@@ -354,13 +354,13 @@ class MainActivityTest {
             .perform(typeText("25"), closeSoftKeyboard())
 
         // Check no date of birth signup problem
-        onView(withId(R.id.submit_profile_btn))
-            .perform(scrollTo())
-            .check(matches(isDisplayingAtLeast(90)))
-            .perform(click())
-        Thread.sleep(1000)
-        onView(withId(R.id.signup_problem_text))
-            .check(matches(withText(R.string.dob_not_selected)))
+//        onView(withId(R.id.submit_profile_btn))
+//            .perform(scrollTo())
+//            .check(matches(isDisplayingAtLeast(90)))
+//            .perform(click())
+//        Thread.sleep(1000)
+//        onView(withId(R.id.signup_problem_text))
+//            .check(matches(withText(R.string.dob_not_selected)))
     }
 
     @Test
