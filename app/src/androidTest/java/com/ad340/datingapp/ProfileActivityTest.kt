@@ -18,7 +18,7 @@ class ProfileActivityTest {
 
     @Test
     fun componentIsDisplayed() {
-        onView(withId(R.id.signup_thanks_text))
+        onView(withId(R.id.profile_picture))
             .check(matches(isDisplayed()))
     }
 

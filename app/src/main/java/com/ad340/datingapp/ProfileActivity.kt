@@ -13,22 +13,19 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        val thanksText = findViewById<TextView>(R.id.signup_thanks_text)
+        val nameText = findViewById<TextView>(R.id.profile_name_age_text)
 
-        val msgText = getString(R.string.signup_thanks)
-        val msg = StringBuilder(msgText)
-        msg.append("\n")
-
+        val msg = StringBuilder()
         val b = intent.extras
 
         if (b != null) {
-            if (b.containsKey(Constants.KEY_USERNAME)) {
-                val username = b.getString(Constants.KEY_USERNAME)
+            if (b.containsKey(Constants.KEY_NAME)) {
+                val username = b.getString(Constants.KEY_NAME)
                 msg.append(username)
             }
         }
 
-        thanksText.text = msg
+        nameText.text = msg
     }
 
     override fun onBackPressed() {

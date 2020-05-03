@@ -4,19 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/signup_thanks_text"
+    <ImageView
+        android:id="@+id/profile_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/signup_text_margin_top"
-        android:textAlignment="center"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/thanks_text_size"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/fae_picture_description"
+        android:src="@drawable/fae_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_name_age_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/profile_text_margin_top"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/thanks_text_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profile_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/item_spacing"/>
+
+    <TextView
+        android:id="@+id/profile_occupation_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_spacing"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_age_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/item_spacing"/>
+
+    <View
+        android:id="@+id/profile_divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="@dimen/divider_spacing"
+        app:layout_constraintTop_toBottomOf="@id/profile_occupation_text"/>
+
+    <TextView
+        android:id="@+id/profile_desc_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/profile_text_margin_top"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/thanks_text_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profile_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/item_spacing"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
