@@ -33,6 +33,15 @@ class MainActivityTest {
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
+    private val testName = "Bob Doe"
+    private val testEmail = "bdoe@gmail.com"
+    private val testAge = "25"
+    private val testOccupation = "Cat King"
+    private val testDescription = "Cat king of the jungle, super magic cat that conquered " +
+            "the west indies, slayed the generals of the world, and never worried about anything. " +
+            "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
+            "the remains of my fallen foes. Have no fear, or have fear, because I am here."
+
     @Test
     fun hasTextOnScreen() {
         onView(withId(R.id.hello_text))
@@ -50,31 +59,37 @@ class MainActivityTest {
         onView(withId(R.id.email_edit_text))
             .check(matches(withHint(R.string.enter_email)))
 
-        onView(withId(R.id.username_edit_text))
-            .check(matches(withHint(R.string.enter_username)))
+        onView(withId(R.id.occupation_edit_text))
+            .check(matches(withHint(R.string.enter_occupation)))
 
         onView(withId(R.id.age_edit_text))
             .check(matches(withHint(R.string.enter_age)))
+
+        onView(withId(R.id.description_text))
+            .check(matches(withHint(R.string.describe_yourself)))
     }
 
     @Test
     fun canEnterText() {
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
-            .check(matches(withText("Bob Doe")))
+            .perform(typeText(testName), closeSoftKeyboard())
+            .check(matches(withText(testName)))
 
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-            .check(matches(withText("bdoe@gmail.com")))
+            .perform(typeText(testEmail), closeSoftKeyboard())
+            .check(matches(withText(testEmail)))
 
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
-            .check(matches(withText("bdoe")))
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+            .check(matches(withText(testOccupation)))
+
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
 
         Thread.sleep(1000)
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
-            .check(matches(withText("25")))
+            .perform(typeText(testAge), closeSoftKeyboard())
+            .check(matches(withText(testAge)))
     }
 
     @Test
@@ -171,20 +186,20 @@ class MainActivityTest {
     @Test
     fun canResistDataLossOnOrientationChange() {
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
-            .check(matches(withText("Bob Doe")))
-
+            .perform(typeText(testName), closeSoftKeyboard())
+            .check(matches(withText(testName)))
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-            .check(matches(withText("bdoe@gmail.com")))
-
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
-            .check(matches(withText("bdoe")))
-
+            .perform(typeText(testEmail), closeSoftKeyboard())
+            .check(matches(withText(testEmail)))
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+            .check(matches(withText(testOccupation)))
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
+        Thread.sleep(1000)
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
-            .check(matches(withText("25")))
+            .perform(typeText(testAge), closeSoftKeyboard())
+            .check(matches(withText(testAge)))
 
 
         onView(withId(R.id.date_of_birth_btn))
@@ -217,13 +232,16 @@ class MainActivityTest {
     @Test
     fun canGoToProfileWithInfo() {
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+            .perform(typeText(testName), closeSoftKeyboard())
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
+            .perform(typeText(testEmail), closeSoftKeyboard())
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
+        Thread.sleep(1000)
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
+            .perform(typeText(testAge), closeSoftKeyboard())
 
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
@@ -253,8 +271,9 @@ class MainActivityTest {
             intended(allOf(
                 hasExtraWithKey(Constants.KEY_NAME),
                 hasExtraWithKey(Constants.KEY_EMAIL),
-                hasExtraWithKey(Constants.KEY_USERNAME),
+                hasExtraWithKey(Constants.KEY_OCCUPATION),
                 hasExtraWithKey(Constants.KEY_AGE),
+                hasExtraWithKey(Constants.KEY_DESCRIPTION),
                 hasExtraWithKey(Constants.KEY_DOB),
                 hasExtra(Constants.KEY_DOB, dateOfBirthArr)
             ))
@@ -268,13 +287,16 @@ class MainActivityTest {
     @Test
     fun stoppedWhenNotOldEnough() {
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+            .perform(typeText(testName), closeSoftKeyboard())
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
+            .perform(typeText(testEmail), closeSoftKeyboard())
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
+        Thread.sleep(1000)
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
+            .perform(typeText(testAge), closeSoftKeyboard())
 
 
         onView(withId(R.id.date_of_birth_btn))
@@ -307,7 +329,7 @@ class MainActivityTest {
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.no_name_entered)))
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+            .perform(typeText(testName), closeSoftKeyboard())
 
         // Check no email signup problem
         onView(withId(R.id.submit_profile_btn))
@@ -328,8 +350,9 @@ class MainActivityTest {
         Thread.sleep(1000)
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.email_not_valid)))
+        // Erase text from email edit text at this point
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
+            .perform(typeText(testEmail), closeSoftKeyboard())
 
         // Check no username signup problem
         onView(withId(R.id.submit_profile_btn))
@@ -338,9 +361,9 @@ class MainActivityTest {
             .perform(click())
         Thread.sleep(1000)
         onView(withId(R.id.signup_problem_text))
-            .check(matches(withText(R.string.no_username_entered)))
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
+            .check(matches(withText(R.string.no_occupation_entered)))
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
 
         // Check no age signup problem
         onView(withId(R.id.submit_profile_btn))
@@ -351,7 +374,18 @@ class MainActivityTest {
         onView(withId(R.id.signup_problem_text))
             .check(matches(withText(R.string.no_age_entered)))
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
+            .perform(typeText(testAge), closeSoftKeyboard())
+
+        // Check no description signup problem
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
+            .perform(click())
+        Thread.sleep(1000)
+        onView(withId(R.id.signup_problem_text))
+            .check(matches(withText(R.string.no_description_entered)))
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
 
         // Check no date of birth signup problem
 //        onView(withId(R.id.submit_profile_btn))
@@ -366,13 +400,16 @@ class MainActivityTest {
     @Test
     fun canClearInputsOnResume() {
         onView(withId(R.id.name_edit_text))
-            .perform(typeText("Bob Doe"), closeSoftKeyboard())
+            .perform(typeText(testName), closeSoftKeyboard())
         onView(withId(R.id.email_edit_text))
-            .perform(typeText("bdoe@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.username_edit_text))
-            .perform(typeText("bdoe"), closeSoftKeyboard())
+            .perform(typeText(testEmail), closeSoftKeyboard())
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
+        Thread.sleep(1000)
         onView(withId(R.id.age_edit_text))
-            .perform(typeText("25"), closeSoftKeyboard())
+            .perform(typeText(testAge), closeSoftKeyboard())
 
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
@@ -406,8 +443,8 @@ class MainActivityTest {
         onView(withId(R.id.email_edit_text))
             .check(matches(withHint(R.string.enter_email)))
 
-        onView(withId(R.id.username_edit_text))
-            .check(matches(withHint(R.string.enter_username)))
+        onView(withId(R.id.occupation_edit_text))
+            .check(matches(withHint(R.string.enter_occupation)))
 
         onView(withId(R.id.age_edit_text))
             .check(matches(withHint(R.string.enter_age)))

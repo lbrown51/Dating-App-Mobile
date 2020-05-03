@@ -13,19 +13,36 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        val nameText = findViewById<TextView>(R.id.profile_name_age_text)
+        val nameAgeText = findViewById<TextView>(R.id.profile_name_age_text)
+        val occupationText = findViewById<TextView>(R.id.profile_occupation_text)
 
-        val msg = StringBuilder()
         val b = intent.extras
 
         if (b != null) {
+
+            val nameAgeStr = StringBuilder()
             if (b.containsKey(Constants.KEY_NAME)) {
-                val username = b.getString(Constants.KEY_NAME)
-                msg.append(username)
+                val name = b.getString(Constants.KEY_NAME)
+                nameAgeStr.append(name)
+
+                if (b.containsKey(Constants.KEY_AGE)) {
+                    val age = b.getString(Constants.KEY_AGE)
+                    nameAgeStr.append(", ")
+                    nameAgeStr.append(age)
+                }
+
+                nameAgeText.text = nameAgeStr
+            }
+
+            val occupationStr = StringBuilder()
+            if (b.containsKey(Constants.KEY_OCCUPATION)) {
+                val occupation = b.getString(Constants.KEY_OCCUPATION)
+                occupationStr.append(occupation)
+
+                occupationText.text = occupationStr ?: "Test"
             }
         }
 
-        nameText.text = msg
     }
 
     override fun onBackPressed() {
