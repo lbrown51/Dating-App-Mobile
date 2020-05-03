@@ -388,7 +388,9 @@ class MainActivityTest {
 
         Thread.sleep(1000)
 
-        onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+        onView(withId(R.id.submit_profile_btn))
+            .perform(scrollTo())
+            .check(matches(isDisplayingAtLeast(90)))
         onView(withId(R.id.submit_profile_btn)).perform(click())
 
         Thread.sleep(1000)
