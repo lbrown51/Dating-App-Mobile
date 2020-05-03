@@ -59,8 +59,9 @@ class MainActivity : AppCompatActivity() {
 
         val name = findViewById<EditText>(R.id.name_edit_text).text.toString()
         val email = findViewById<EditText>(R.id.email_edit_text).text.toString()
-        val username = findViewById<EditText>(R.id.username_edit_text).text.toString()
+        val occupation = findViewById<EditText>(R.id.occupation_edit_text).text.toString()
         val age = findViewById<EditText>(R.id.age_edit_text).text.toString()
+        val description = findViewById<EditText>(R.id.description_text).text.toString()
 
         val signupProblem = findViewById<TextView>(R.id.signup_problem_text)
         val isDateOfBirthSelected = dateOfBirthMap.values.all { it != 0 }
@@ -69,14 +70,16 @@ class MainActivity : AppCompatActivity() {
             name == "" -> signupProblem.text = getString(R.string.no_name_entered)
             email == "" -> signupProblem.text = getString(R.string.no_email_entered)
             isEmailInvalid(email) -> signupProblem.text = getString(R.string.email_not_valid)
-            username == "" -> signupProblem.text = getString(R.string.no_username_entered)
+            occupation == "" -> signupProblem.text = getString(R.string.no_occupation_entered)
             age == "" -> signupProblem.text = getString(R.string.no_age_entered)
+            description == "" -> signupProblem.text = getString(R.string.no_description_entered)
             !isDateOfBirthSelected -> signupProblem.text = getString(R.string.dob_not_selected)
             else -> {
                 bundle.putString(Constants.KEY_NAME, name)
                 bundle.putString(Constants.KEY_EMAIL, email)
-                bundle.putString(Constants.KEY_USERNAME, username)
+                bundle.putString(Constants.KEY_OCCUPATION, occupation)
                 bundle.putString(Constants.KEY_AGE, age)
+                bundle.putString(Constants.KEY_DESCRIPTION, description)
 
                 val dateOfBirthArr = getDateOfBirthArr()
 

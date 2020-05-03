@@ -60,12 +60,12 @@
             app:layout_constraintTop_toBottomOf="@+id/name_edit_text" />
 
         <EditText
-            android:id="@+id/username_edit_text"
+            android:id="@+id/occupation_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_spacing"
-            android:autofillHints="@string/enter_username"
-            android:hint="@string/enter_username"
+            android:autofillHints="@string/enter_occupation"
+            android:hint="@string/enter_occupation"
             android:inputType="textPersonName"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_edit_text" />
+            app:layout_constraintTop_toBottomOf="@+id/occupation_edit_text" />
 
         <Button
             android:id="@+id/date_of_birth_btn"
