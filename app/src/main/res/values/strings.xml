@@ -21,4 +21,6 @@
     <string name="no_username_entered">You didn\'t enter a username!</string>
     <string name="no_age_entered">You didn\'t enter an age!</string>
     <string name="email_not_valid">You did not enter a valid email!</string>
+    <string name="fae_picture_description">A picture of Fae the cat</string>
+    <string name="describe_yourself">Describe yourself!</string>
 </resources>

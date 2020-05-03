@@ -210,7 +210,7 @@ class MainActivityTest {
             .perform((scrollTo()))
             .perform(click())
 
-        onView(withId(R.id.signup_thanks_text))
+        onView(withId(R.id.profile_name_age_text))
             .check(matches(isDisplayed()))
     }
 
