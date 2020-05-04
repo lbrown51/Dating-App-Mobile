@@ -45,7 +45,7 @@
     <View
         android:id="@+id/profile_divider"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="@dimen/profile_divider_height"
         android:background="@color/colorAccent"
         android:layout_marginTop="@dimen/divider_spacing"
         app:layout_constraintTop_toBottomOf="@id/profile_occupation_text"/>
