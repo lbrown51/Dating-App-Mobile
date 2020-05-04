@@ -15,6 +15,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         val nameAgeText = findViewById<TextView>(R.id.profile_name_age_text)
         val occupationText = findViewById<TextView>(R.id.profile_occupation_text)
+        val descriptionText = findViewById<TextView>(R.id.profile_desc_text)
 
         val b = intent.extras
 
@@ -39,7 +40,15 @@ class ProfileActivity : AppCompatActivity() {
                 val occupation = b.getString(Constants.KEY_OCCUPATION)
                 occupationStr.append(occupation)
 
-                occupationText.text = occupationStr ?: "Test"
+                occupationText.text = occupationStr
+            }
+
+            val descriptionStr = StringBuilder()
+            if (b.containsKey(Constants.KEY_DESCRIPTION)) {
+                val description = b.getString(Constants.KEY_DESCRIPTION)
+                descriptionStr.append(description)
+
+                descriptionText.text = descriptionStr
             }
         }
 
