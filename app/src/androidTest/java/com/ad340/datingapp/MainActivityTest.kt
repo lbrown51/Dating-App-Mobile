@@ -453,4 +453,57 @@ class MainActivityTest {
             .check(matches(withText(R.string.select_dob_text)))
     }
 
+    @Test
+    fun profileCanRenderInfo() {
+        onView(withId(R.id.name_edit_text))
+            .perform(typeText(testName), closeSoftKeyboard())
+        onView(withId(R.id.email_edit_text))
+            .perform(typeText(testEmail), closeSoftKeyboard())
+        onView(withId(R.id.occupation_edit_text))
+            .perform(typeText(testOccupation), closeSoftKeyboard())
+        onView(withId(R.id.description_text))
+            .perform(typeText(testDescription), closeSoftKeyboard())
+        Thread.sleep(1000)
+        onView(withId(R.id.age_edit_text))
+            .perform(typeText(testAge), closeSoftKeyboard())
+
+        onView(withId(R.id.date_of_birth_btn))
+            .perform(click())
+
+        Thread.sleep(2000)
+
+        onView(withId(R.id.date_of_birth_picker))
+            .perform(PickerActions.setDate(2000, 12, 5))
+            .perform( closeSoftKeyboard())
+
+        onView(withId(R.id.confirm_date_of_birth_btn))
+            .perform(click())
+
+        Thread.sleep(2000)
+
+        try {
+            Intents.init()
+
+            onView(withId(R.id.submit_profile_btn)).perform(scrollTo())
+            Thread.sleep(1000)
+
+            onView(withId(R.id.submit_profile_btn)).check(matches(isDisplayingAtLeast(90)))
+            onView(withId(R.id.submit_profile_btn)).perform(click())
+
+            Thread.sleep(3000)
+
+            val nameAgeStr = StringBuilder()
+            nameAgeStr.append(testName)
+            nameAgeStr.append(", ")
+            nameAgeStr.append(testAge)
+            onView(withId(R.id.profile_name_age_text))
+                .check(matches(withText(nameAgeStr.toString())))
+
+            onView(withId(R.id.profile_occupation_text))
+                .check(matches(withText(testOccupation)))
+        } finally {
+            Intents.release()
+        }
+    }
+
 }

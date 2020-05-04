@@ -1,5 +1,7 @@
 package com.ad340.datingapp
 
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Rule
