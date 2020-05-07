@@ -45,7 +45,7 @@ class MainActivityTest {
     @Test
     fun hasTextOnScreen() {
         onView(withId(R.id.hello_text))
-            .check(matches(withText(R.string.hello_world)))
+            .check(matches(withText(R.string.enter_profile_info)))
 
         onView(withId(R.id.name_date))
             .check(matches(withText(R.string.name_date_text)))
@@ -435,7 +435,7 @@ class MainActivityTest {
         Thread.sleep(1000)
 
         onView(withId(R.id.hello_text))
-            .check(matches(withText(R.string.hello_world)))
+            .check(matches(withText(R.string.enter_profile_info)))
 
         onView(withId(R.id.name_edit_text))
             .check(matches(withHint(R.string.enter_name)))
