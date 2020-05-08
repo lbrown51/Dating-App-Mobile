@@ -2,55 +2,36 @@ package com.ad340.datingapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Adapter
+import android.widget.SimpleAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class ProfileActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
+    private val NUM_TABS = 3
+    private val TAB_NAMES = arrayListOf<String>("Profile", "Matches", "Settings")
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        val nameAgeText = findViewById<TextView>(R.id.profile_name_age_text)
-        val occupationText = findViewById<TextView>(R.id.profile_occupation_text)
-        val descriptionText = findViewById<TextView>(R.id.profile_desc_text)
 
-        val b = intent.extras
+        val viewPager = findViewById<ViewPager2>(R.id.profile_pager)
+        viewPager.adapter = ProfileTabAdapter(this, NUM_TABS, intent.extras)
 
-        if (b != null) {
-
-            val nameAgeStr = StringBuilder()
-            if (b.containsKey(Constants.KEY_NAME)) {
-                val name = b.getString(Constants.KEY_NAME)
-                nameAgeStr.append(name)
-
-                if (b.containsKey(Constants.KEY_AGE)) {
-                    val age = b.getString(Constants.KEY_AGE)
-                    nameAgeStr.append(", ")
-                    nameAgeStr.append(age)
-                }
-
-                nameAgeText.text = nameAgeStr
-            }
-
-            val occupationStr = StringBuilder()
-            if (b.containsKey(Constants.KEY_OCCUPATION)) {
-                val occupation = b.getString(Constants.KEY_OCCUPATION)
-                occupationStr.append(occupation)
-
-                occupationText.text = occupationStr
-            }
-
-            val descriptionStr = StringBuilder()
-            if (b.containsKey(Constants.KEY_DESCRIPTION)) {
-                val description = b.getString(Constants.KEY_DESCRIPTION)
-                descriptionStr.append(description)
-
-                descriptionText.text = descriptionStr
-            }
-        }
+        val profileTabs = findViewById<TabLayout>(R.id.profile_tabs)
+        TabLayoutMediator(profileTabs, viewPager) { tab, position ->
+            tab.text = TAB_NAMES[position]
+        }.attach()
 
     }
 
