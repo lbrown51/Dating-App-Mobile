@@ -28,4 +28,5 @@
     <string name="email_not_valid">You did not enter a valid email!</string>
 
     <string name="fae_picture_description">A picture of Fae the cat</string>
+    <string name="enter_profile_info">Enter Profile Info</string>
 </resources>
