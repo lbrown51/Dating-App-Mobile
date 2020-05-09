@@ -33,8 +33,8 @@ class MainActivityTest {
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
-    private val testName = "Bob Doe"
-    private val testEmail = "bdoe@gmail.com"
+    private val testName = "Fae Bington"
+    private val testEmail = "fbington@gmail.com"
     private val testAge = "25"
     private val testOccupation = "Cat King"
     private val testDescription = "Cat king of the jungle, super magic cat that conquered " +
@@ -137,9 +137,11 @@ class MainActivityTest {
     fun validateDateOfBirthFuncs() {
         onView(withId(R.id.date_of_birth_btn))
             .perform(click())
+        Thread.sleep(1000)
         onView(withId(R.id.date_of_birth_picker))
             .perform(PickerActions.setDate(2000, 12, 5))
             .perform( closeSoftKeyboard())
+        Thread.sleep(1000)
         onView(withId(R.id.confirm_date_of_birth_btn))
             .perform(click())
 

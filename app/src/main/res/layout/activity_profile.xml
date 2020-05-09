@@ -7,61 +7,33 @@
     tools:context=".ProfileActivity"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/profile_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/fae_picture_description"
-        android:src="@drawable/fae_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/profile_name_age_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_spacing"
-        android:layout_marginTop="@dimen/profile_text_margin_top"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/profile_name_age_text_size"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_picture" />
-
-    <TextView
-        android:id="@+id/profile_occupation_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_spacing"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/profile_occupation_text_size"
-        android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_name_age_text" />
-
-    <View
-        android:id="@+id/profile_divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_divider_height"
-        android:background="@color/colorAccent"
-        android:layout_marginTop="@dimen/divider_spacing"
-        app:layout_constraintTop_toBottomOf="@id/profile_occupation_text"/>
-
-    <TextView
-        android:id="@+id/profile_desc_text"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_spacing"
-        android:layout_marginTop="@dimen/profile_text_margin_top"
-        android:layout_marginEnd="@dimen/item_spacing"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        android:textSize="@dimen/profile_description_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_divider" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Dating App"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/profile_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/profile_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
