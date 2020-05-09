@@ -33,8 +33,8 @@ class MainActivityTest {
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
-    private val testName = "Bob Doe"
-    private val testEmail = "bdoe@gmail.com"
+    private val testName = "Fae Bington"
+    private val testEmail = "fbington@gmail.com"
     private val testAge = "25"
     private val testOccupation = "Cat King"
     private val testDescription = "Cat king of the jungle, super magic cat that conquered " +
