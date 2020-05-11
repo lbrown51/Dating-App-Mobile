@@ -74,8 +74,8 @@ class ProfileActivityTest {
     fun canSwitchBetweenTabs() {
         onView(withText("Matches"))
             .perform(click())
-        onView(withId(R.id.matches_hello_text))
-            .check(matches(withText(R.string.hello_blank_fragment)))
+        onView(withId(R.id.matches_recycler_view))
+            .check(matches(isDisplayed()))
 
         onView(withText("Settings"))
             .perform(click())

@@ -9,7 +9,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/matches_margin_top"
         android:paddingStart="@dimen/item_spacing"
         android:paddingEnd="@dimen/item_spacing"
         android:background="@color/colorWhite"
