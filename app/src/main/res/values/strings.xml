@@ -31,4 +31,5 @@
     <string name="enter_profile_info">Enter Profile Info</string>
     <string name="name">Name</string>
     <string name="ipsum_lorum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae lectus iaculis, tincidunt orci ac, imperdiet sapien. Aenean tincidunt mauris.</string>
+    <string name="match_profile_picture">Match Profile Picture</string>
 </resources>

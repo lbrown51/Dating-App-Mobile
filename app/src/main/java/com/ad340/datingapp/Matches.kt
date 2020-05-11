@@ -38,7 +38,9 @@ class Matches : Fragment() {
 
         val adapter = MatchCardAdapter(matchesList)
         view.matches_recycler_view.adapter = adapter
-
+        val largePadding = resources.getDimensionPixelSize(R.dimen.item_spacing)
+        val smallPadding = resources.getDimensionPixelSize(R.dimen.small_item_spacing)
+        view.matches_recycler_view.addItemDecoration(MatchesItemDecoration(largePadding, smallPadding))
         // Inflate the layout for this fragment
         return view
     }
