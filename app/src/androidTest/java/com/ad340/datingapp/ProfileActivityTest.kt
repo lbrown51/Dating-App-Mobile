@@ -85,4 +85,6 @@ class ProfileActivityTest {
         onView(withText("Profile"))
             .perform(click())
     }
+
+
 }
