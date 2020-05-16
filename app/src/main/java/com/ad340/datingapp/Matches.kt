@@ -27,14 +27,16 @@ class Matches : Fragment() {
 
         val matchesList: List<MatchEntry> = listOf(
             MatchEntry("Cristobal Hiscoe", R.drawable.fae_profile, "", false),
-            MatchEntry("Valera Vials", R.drawable.fae_profile, "", false),
-            MatchEntry("Theodor Leacock", R.drawable.fae_profile, "", false),
-            MatchEntry("Susy Hornung", R.drawable.fae_profile, "", false),
-            MatchEntry("Patti Toope", R.drawable.fae_profile, "", false),
+            MatchEntry("Valera Vials", R.drawable.lenny_alien, "", false),
+            MatchEntry("Theodor Leacock", R.drawable.yim_alien, "", false),
+            MatchEntry("Susy Hornung", R.drawable.cool_graph, "", false),
+            MatchEntry("Patti Toope", R.drawable.profile_picture, "", false),
             MatchEntry("Addie Devo", R.drawable.fae_profile, "", false),
-            MatchEntry("Aguistin Chaffyn", R.drawable.fae_profile, "", false),
-            MatchEntry("Rog O'Cannovane", R.drawable.fae_profile, "", false)
+            MatchEntry("Aguistin Chaffyn", R.drawable.lenny_alien, "", false),
+            MatchEntry("Rog O'Cannovane", R.drawable.yim_alien, "", false)
         )
+
+
 
         val adapter = MatchCardAdapter(matchesList)
         view.matches_recycler_view.adapter = adapter

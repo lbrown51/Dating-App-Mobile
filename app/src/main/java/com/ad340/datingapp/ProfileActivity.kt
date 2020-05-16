@@ -17,9 +17,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
     private val NUM_TABS = 3
-    private val TAB_NAMES = arrayListOf<String>("Profile", "Matches", "Settings")
-
-
+    private val TAB_NAMES = arrayListOf("Profile", "Matches", "Settings")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/match_card_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/match_card_image_height"
             android:contentDescription="@string/match_profile_picture"
             android:background="@color/colorPrimaryDark"
             android:scaleType="centerCrop" />
@@ -39,16 +39,15 @@
                 android:text="@string/ipsum_lorum"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-            <ImageButton
+            <CheckBox
                 android:id="@+id/match_like_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/item_spacing"
                 android:layout_marginTop="@dimen/item_spacing"
-                android:src="@drawable/ic_favorite_outlined"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:tint="@color/grey"/>
+                android:button="@drawable/sl_favourite_24dp"
+                android:buttonTint="@color/black"/>
 
         </LinearLayout>
     </LinearLayout>

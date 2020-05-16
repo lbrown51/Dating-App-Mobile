@@ -3,6 +3,7 @@ package com.ad340.datingapp
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.match_card.view.*
 
@@ -29,7 +30,7 @@ class MatchCardAdapter(private val matchList: List<MatchEntry>):
     override fun onBindViewHolder(holder: MatchCardViewHolder, position: Int) {
         if (position < matchList.size) {
             val match = matchList[position]
-            holder.matchImage.setImageResource(R.drawable.fae_profile)
+            holder.matchImage.setImageResource(match.imageId)
             holder.matchName.text = match.name
         }
     }
