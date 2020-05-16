@@ -93,7 +93,11 @@ class ProfileActivityTest {
         onView(withId(R.id.matches_recycler_view))
             .check(matches(isDisplayed()))
 
-        
+
+        val firstName = activityRule.activity.resources
+            .getStringArray(R.array.matchNames)[0]
+        onView(withText(firstName))
+            .check(matches(isDisplayed()))
     }
 
 }
