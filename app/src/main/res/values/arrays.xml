@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="matchNames">
+        <item>Cristobal Hiscoe</item>
+        <item>Valera Vials</item>
+        <item>Theodor Leacock</item>
+        <item>Susy Hornung</item>
+        <item>Patti Toope</item>
+        <item>Addie Devo</item>
+        <item>Aguistin Chaffyn</item>
+        <item>Rog O\'Cannovane</item>
+    </string-array>
+    <integer-array name="matchImageIds">
+        <item>@drawable/fae_profile</item>
+        <item>@drawable/lenny_alien</item>
+        <item>@drawable/yim_alien</item>
+        <item>@drawable/cool_graph</item>
+        <item>@drawable/profile_picture</item>
+        <item>@drawable/fae_profile</item>
+        <item>@drawable/lenny_alien</item>
+        <item>@drawable/yim_alien</item>
+    </integer-array>
+</resources>

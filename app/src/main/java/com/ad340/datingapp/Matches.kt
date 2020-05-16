@@ -25,18 +25,12 @@ class Matches : Fragment() {
         view.matches_recycler_view.setHasFixedSize(true)
         view.matches_recycler_view.layoutManager = LinearLayoutManager(context)
 
-        val matchesList: List<MatchEntry> = listOf(
-            MatchEntry("Cristobal Hiscoe", R.drawable.fae_profile, "", false),
-            MatchEntry("Valera Vials", R.drawable.lenny_alien, "", false),
-            MatchEntry("Theodor Leacock", R.drawable.yim_alien, "", false),
-            MatchEntry("Susy Hornung", R.drawable.cool_graph, "", false),
-            MatchEntry("Patti Toope", R.drawable.profile_picture, "", false),
-            MatchEntry("Addie Devo", R.drawable.fae_profile, "", false),
-            MatchEntry("Aguistin Chaffyn", R.drawable.lenny_alien, "", false),
-            MatchEntry("Rog O'Cannovane", R.drawable.yim_alien, "", false)
-        )
-
-
+        val matchNameArr = resources.getStringArray(R.array.matchNames)
+        val matchImages = resources.obtainTypedArray(R.array.matchImageIds)
+        val matchesList = List<MatchEntry>(matchNameArr.size) { index ->
+            MatchEntry(matchNameArr[index],
+                matchImages.getResourceId(index, -1), "")
+        }
 
         val adapter = MatchCardAdapter(matchesList)
         view.matches_recycler_view.adapter = adapter

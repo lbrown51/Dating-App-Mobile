@@ -2,6 +2,7 @@ package com.ad340.datingapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +20,13 @@ class MatchCardAdapter(private val matchList: List<MatchEntry>):
 
         layoutView.match_like_button.setOnClickListener {
             val matchName = layoutView.match_card_name.text
-            val youLikedStr = String.format(
-                layoutView.resources.getString(R.string.you_liked), matchName)
-            Toast.makeText(parent.context, youLikedStr, Toast.LENGTH_LONG).show()
+
+            val toastStr: String = if ((it as CheckBox).isChecked) {
+                String.format(layoutView.resources.getString(R.string.you_liked), matchName)
+            } else {
+                String.format(layoutView.resources.getString(R.string.you_unliked), matchName)
+            }
+            Toast.makeText(parent.context, toastStr, Toast.LENGTH_SHORT).show()
         }
 
         return MatchCardViewHolder(layoutView)

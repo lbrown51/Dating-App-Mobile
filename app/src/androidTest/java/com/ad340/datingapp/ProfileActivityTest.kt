@@ -86,5 +86,14 @@ class ProfileActivityTest {
             .perform(click())
     }
 
+    @Test
+    fun matchesAreDisplayed() {
+        onView(withText("Matches"))
+            .perform(click())
+        onView(withId(R.id.matches_recycler_view))
+            .check(matches(isDisplayed()))
+
+        
+    }
 
 }
