@@ -12,13 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
 
     private val dateOfBirthMap = mutableMapOf(
         Constants.KEY_DAY to 1,
@@ -32,6 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         val currentUser = auth.currentUser
+        if (currentUser == null) {
+            intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
