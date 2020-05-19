@@ -37,4 +37,5 @@
     <!-- MATCH INFORMATION   -->
     <string name="you_liked">You liked %1$s</string>
     <string name="you_unliked">You unliked %1$s</string>
+    <string name="sign_in">Sign In</string>
 </resources>
