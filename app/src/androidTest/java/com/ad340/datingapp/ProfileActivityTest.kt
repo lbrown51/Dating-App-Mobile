@@ -93,6 +93,7 @@ class ProfileActivityTest {
     fun matchesAreDisplayed() {
         onView(withText("Matches"))
             .perform(click())
+        Thread.sleep(4000)
         onView(withId(R.id.matches_recycler_view))
             .check(matches(isDisplayed()))
 
