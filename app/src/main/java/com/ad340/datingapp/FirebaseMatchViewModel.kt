@@ -17,11 +17,11 @@ class FirebaseMatchViewModel: ViewModel() {
     fun getMatches(): LiveData<List<MatchItem>> {
         matchModel.getMatches()
             .addSnapshotListener(EventListener<QuerySnapshot> { querySnapshot, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    matches.value = null
-                    return@EventListener
-                }
+//                if (e != null) {
+//                    Log.w(TAG, "Listen failed.", e)
+//                    matches.value = null
+//                    return@EventListener
+//                }
 
                 val matchList: MutableList<MatchItem> = mutableListOf()
                 for (doc in querySnapshot!!) {
