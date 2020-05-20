@@ -1,22 +1,35 @@
 package com.ad340.datingapp
 
+import android.content.Context
+import android.text.Layout
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.match_card.view.*
 
 /**
  * Adapter used to show a list of card matches.
  */
-class MatchCardAdapter(private val matchList: List<MatchEntry>):
-    RecyclerView.Adapter<MatchCardViewHolder>() {
+class MatchCardAdapter internal constructor(
+    context: Context
+): RecyclerView.Adapter<MatchCardAdapter.MatchCardViewHolder>() {
+
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var matchList = emptyList<MatchItem>()
+
+    inner class MatchCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var matchImage: ImageView = itemView.findViewById(R.id.match_card_image)
+        var matchName: TextView = itemView.findViewById(R.id.match_card_name)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchCardViewHolder {
-        val layoutView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.match_card, parent, false)
+        val layoutView = inflater.inflate(R.layout.match_card, parent, false)
 
         layoutView.match_like_button.setOnClickListener {
             val matchName = layoutView.match_card_name.text
@@ -35,14 +48,16 @@ class MatchCardAdapter(private val matchList: List<MatchEntry>):
     override fun onBindViewHolder(holder: MatchCardViewHolder, position: Int) {
         if (position < matchList.size) {
             val match = matchList[position]
-            holder.matchImage.setImageResource(match.imageId)
+            //holder.matchImage.setImageResource(match.imageId)
             holder.matchName.text = match.name
         }
     }
 
-    override fun getItemCount(): Int {
-        return matchList.size
-    }
+    override fun getItemCount() = matchList.size
 
+    internal fun setMatchList(matchList: List<MatchItem>) {
+        this.matchList = matchList
+        notifyDataSetChanged()
+    }
 
 }
