@@ -1,6 +1,8 @@
 package com.ad340.datingapp
 
+
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.DatePicker
@@ -10,28 +12,33 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.PickerActions
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.*
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.rule.ActivityTestRule
 import org.hamcrest.core.AllOf.allOf
-
-
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import java.time.LocalDate
+
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java)
+    val activityRule
+            = ActivityTestRule(MainActivity::class.java, true, false)
 
     private val testName = "Fae Bington"
     private val testEmail = "fbington@gmail.com"
@@ -41,6 +48,21 @@ class MainActivityTest {
             "the west indies, slayed the generals of the world, and never worried about anything. " +
             "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
             "the remains of my fallen foes. Have no fear, or have fear, because I am here."
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseUser: FirebaseUser
+
+    @Before
+    fun init() {
+        firebaseAuth = mock(FirebaseAuth::class.java)
+        firebaseUser = mock(FirebaseUser::class.java)
+
+        FirebaseAuthGetter.firebaseAuth = firebaseAuth
+        `when`(firebaseAuth.currentUser).thenReturn(firebaseUser)
+
+        val intent = Intent()
+        activityRule.launchActivity(intent)
+    }
 
     @Test
     fun hasTextOnScreen() {

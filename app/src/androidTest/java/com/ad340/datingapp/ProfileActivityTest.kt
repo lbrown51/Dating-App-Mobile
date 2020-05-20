@@ -1,19 +1,18 @@
 package com.ad340.datingapp
 
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.rule.ActivityTestRule
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.rule.ActivityTestRule
-import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
 class ProfileActivityTest {
@@ -86,18 +85,22 @@ class ProfileActivityTest {
             .perform(click())
     }
 
+    fun withRecyclerView(recyclerViewId: Int): RecyclerViewMatcher? {
+        return RecyclerViewMatcher(recyclerViewId)
+    }
+
     @Test
     fun matchesAreDisplayed() {
         onView(withText("Matches"))
             .perform(click())
+        Thread.sleep(4000)
         onView(withId(R.id.matches_recycler_view))
             .check(matches(isDisplayed()))
 
-
-        val firstName = activityRule.activity.resources
-            .getStringArray(R.array.matchNames)[0]
-        onView(withText(firstName))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.matches_recycler_view))
+            .perform(RecyclerViewActions
+                .actionOnItemAtPosition<RecyclerView.ViewHolder>
+                    (1, click()))
     }
 
 }
