@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_card.view.*
 
 /**
@@ -48,7 +49,7 @@ class MatchCardAdapter internal constructor(
     override fun onBindViewHolder(holder: MatchCardViewHolder, position: Int) {
         if (position < matchList.size) {
             val match = matchList[position]
-            //holder.matchImage.setImageResource(match.imageId)
+            Picasso.get().load(match.imageUrl).into(holder.matchImage)
             holder.matchName.text = match.name
         }
     }
