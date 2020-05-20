@@ -45,13 +45,13 @@ class Matches : Fragment() {
             matchList?.let { adapter.setMatchList(it) }
         })
 
-        val matchNameArr = resources.getStringArray(R.array.matchNames)
-        val matchImages = resources.obtainTypedArray(R.array.matchImageIds)
-
-        val matchesList = List<MatchEntry>(matchNameArr.size) { index ->
-            MatchEntry(matchNameArr[index],
-                matchImages.getResourceId(index, -1), "")
-        }
+//        val matchNameArr = resources.getStringArray(R.array.matchNames)
+//        val matchImages = resources.obtainTypedArray(R.array.matchImageIds)
+//
+//        val matchesList = List<MatchEntry>(matchNameArr.size) { index ->
+//            MatchEntry(matchNameArr[index],
+//                matchImages.getResourceId(index, -1), "")
+//        }
 
         // Inflate the layout for this fragment
         return view

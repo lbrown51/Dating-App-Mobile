@@ -1,7 +1,6 @@
 package com.ad340.datingapp
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +26,8 @@ class MatchCardAdapter internal constructor(
 
         var matchImage: ImageView = itemView.findViewById(R.id.match_card_image)
         var matchName: TextView = itemView.findViewById(R.id.match_card_name)
+        var matchIsLiked: CheckBox = itemView.findViewById(R.id.match_like_button)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchCardViewHolder {
@@ -49,8 +50,10 @@ class MatchCardAdapter internal constructor(
     override fun onBindViewHolder(holder: MatchCardViewHolder, position: Int) {
         if (position < matchList.size) {
             val match = matchList[position]
+
             Picasso.get().load(match.imageUrl).into(holder.matchImage)
             holder.matchName.text = match.name
+            holder.matchIsLiked.isChecked = match.liked
         }
     }
 
