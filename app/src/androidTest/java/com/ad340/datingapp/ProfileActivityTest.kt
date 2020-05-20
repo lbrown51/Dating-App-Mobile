@@ -2,6 +2,7 @@ package com.ad340.datingapp
 
 import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Rule
@@ -12,7 +13,10 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.rule.ActivityTestRule
+import com.google.android.material.card.MaterialCardView
+import org.hamcrest.core.AllOf.allOf
 import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
@@ -93,11 +97,10 @@ class ProfileActivityTest {
         onView(withId(R.id.matches_recycler_view))
             .check(matches(isDisplayed()))
 
-
-        val firstName = activityRule.activity.resources
-            .getStringArray(R.array.matchNames)[0]
-        onView(withText(firstName))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.matches_recycler_view))
+            .perform(RecyclerViewActions
+                .actionOnItemAtPosition<RecyclerView.ViewHolder>
+                    (1, click()))
     }
 
 }
