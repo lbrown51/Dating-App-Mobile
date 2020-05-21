@@ -45,9 +45,7 @@ class MainActivityTest {
     private val testAge = "25"
     private val testOccupation = "Cat King"
     private val testDescription = "Cat king of the jungle, super magic cat that conquered " +
-            "the west indies, slayed the generals of the world, and never worried about anything. " +
-            "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
-            "the remains of my fallen foes. Have no fear, or have fear, because I am here."
+            "the west indies, slayed the generals of the world, and never worried about anything. "
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
@@ -212,6 +210,7 @@ class MainActivityTest {
         onView(withId(R.id.name_edit_text))
             .perform(typeText(testName), closeSoftKeyboard())
             .check(matches(withText(testName)))
+        Thread.sleep(1000)
         onView(withId(R.id.email_edit_text))
             .perform(typeText(testEmail), closeSoftKeyboard())
             .check(matches(withText(testEmail)))
