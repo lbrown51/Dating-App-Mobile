@@ -14,7 +14,6 @@ class ProfileTabAdapter(activity: AppCompatActivity, val itemsCount: Int, val bu
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> Profile(bundle)
             1 -> Matches()
             2 -> Settings()
             else -> Profile(bundle)

@@ -34,7 +34,7 @@ class Matches : Fragment() {
         val largePadding = resources.getDimensionPixelSize(R.dimen.item_spacing)
         val smallPadding = resources.getDimensionPixelSize(R.dimen.small_item_spacing)
         view.matches_recycler_view.addItemDecoration(MatchesItemDecoration(largePadding, smallPadding))
-        
+
         val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
         firebaseMatchViewModel.getMatches().observe(this, Observer { matchList ->
             matchList?.let { adapter.setMatchList(it) }
