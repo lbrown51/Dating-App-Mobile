@@ -48,9 +48,6 @@ class MainActivityUnitTest {
     fun onDateClick() {
     }
 
-    @Test
-    fun isEmailInvalid() {
-    }
 
     @Test
     fun getDateOfBirthArr() {

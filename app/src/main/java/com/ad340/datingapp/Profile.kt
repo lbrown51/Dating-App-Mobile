@@ -34,14 +34,14 @@ class Profile(val bundle: Bundle?) : Fragment() {
         val occupationText = viewLayout.profile_occupation_text
         val descriptionText = viewLayout.profile_desc_text
 
-        if (bundle != null) {
+        if (bundleIsNotNull(bundle)) {
             val nameAgeStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_NAME)) {
-                val name = bundle.getString(Constants.KEY_NAME)
+            if (bundleContainsKey(bundle, Constants.KEY_NAME)) {
+                val name = bundle?.getString(Constants.KEY_NAME)
                 nameAgeStr.append(name)
 
-                if (bundle.containsKey(Constants.KEY_AGE)) {
-                    val age = bundle.getString(Constants.KEY_AGE)
+                if (bundleContainsKey(bundle, Constants.KEY_AGE)) {
+                    val age = bundle?.getString(Constants.KEY_AGE)
                     nameAgeStr.append(", ")
                     nameAgeStr.append(age)
                 }
@@ -50,16 +50,16 @@ class Profile(val bundle: Bundle?) : Fragment() {
             }
 
             val occupationStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_OCCUPATION)) {
-                val occupation = bundle.getString(Constants.KEY_OCCUPATION)
+            if (bundleContainsKey(bundle, Constants.KEY_OCCUPATION)) {
+                val occupation = bundle?.getString(Constants.KEY_OCCUPATION)
                 occupationStr.append(occupation)
 
                 occupationText.text = occupationStr
             }
 
             val descriptionStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_DESCRIPTION)) {
-                val description = bundle.getString(Constants.KEY_DESCRIPTION)
+            if (bundleContainsKey(bundle, Constants.KEY_DESCRIPTION)) {
+                val description = bundle?.getString(Constants.KEY_DESCRIPTION)
                 descriptionStr.append(description)
 
                 descriptionText.text = descriptionStr
@@ -68,5 +68,9 @@ class Profile(val bundle: Bundle?) : Fragment() {
         // Inflate the layout for this fragment
         return viewLayout
     }
+
+    fun bundleIsNotNull(bundle: Bundle?): Boolean = bundle != null
+
+    fun bundleContainsKey(bundle: Bundle?, key: String) = bundle!!.containsKey(key)
 
 }
