@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var auth: FirebaseAuth
 
-    private val dateOfBirthMap = mutableMapOf(
+    private val dateOfBirthMap: MutableMap<String, Int?> = mutableMapOf(
         Constants.KEY_DAY to 1,
         Constants.KEY_MONTH to 1,
         Constants.KEY_YEAR to 1
@@ -37,16 +37,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         if (savedInstanceState.containsKey(Constants.KEY_DOB)) {
             val dateOfBirthArr= savedInstanceState.getIntArray(Constants.KEY_DOB)
-            if (dateOfBirthArr != null) {
-                dateOfBirthMap[Constants.KEY_YEAR] = dateOfBirthArr[0]
-                dateOfBirthMap[Constants.KEY_MONTH] = dateOfBirthArr[1]
-                dateOfBirthMap[Constants.KEY_DAY] = dateOfBirthArr[2]
-            }
+            setDateOfBirthMap(dateOfBirthArr)
         }
     }
 
@@ -57,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         if (isDateOfBirthSelected) {
 
-            val dateOfBirthArr = getDateOfBirthArr()
+            val dateOfBirthArr = getDateOfBirthArr(dateOfBirthMap)
 
             outState.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
         }
@@ -91,11 +87,11 @@ class MainActivity : AppCompatActivity() {
                 bundle.putString(Constants.KEY_AGE, age)
                 bundle.putString(Constants.KEY_DESCRIPTION, description)
 
-                val dateOfBirthArr = getDateOfBirthArr()
+                val dateOfBirthArr = getDateOfBirthArr(dateOfBirthMap)
 
                 bundle.putIntArray(Constants.KEY_DOB, dateOfBirthArr)
 
-                val dob = getDateOfBirthLocalDate()
+                val dob = getDateOfBirthLocalDate(dateOfBirthMap)
 
                 val eighteenYears = dob.plusYears(Constants.LEGAL_YEAR)
                 val now = LocalDate.now()
@@ -144,17 +140,28 @@ class MainActivity : AppCompatActivity() {
         return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun getDateOfBirthArr() = intArrayOf(
+    fun getDateOfBirthArr(dateOfBirthMap: MutableMap<String, Int?>) = intArrayOf(
         dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
         dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
         dateOfBirthMap[Constants.KEY_DAY] ?: 0
     )
 
-    fun getDateOfBirthLocalDate() = LocalDate.of(
+    fun getDateOfBirthLocalDate(dateOfBirthMap: MutableMap<String, Int? >): LocalDate = LocalDate.of(
         dateOfBirthMap[Constants.KEY_YEAR] ?: 0,
-        dateOfBirthMap[Constants.KEY_MONTH] ?: 0,
-        dateOfBirthMap[Constants.KEY_DAY] ?: 0
+        dateOfBirthMap[Constants.KEY_MONTH] ?: 1,
+        dateOfBirthMap[Constants.KEY_DAY] ?: 1
     )
 
-    fun getDateOfBirthMap(): MutableMap<String, Int> = dateOfBirthMap
+    fun setDateOfBirthMap(dateOfBirthArr: IntArray?): Boolean {
+        return if (dateOfBirthArr != null) {
+            dateOfBirthMap[Constants.KEY_YEAR] = dateOfBirthArr[0]
+            dateOfBirthMap[Constants.KEY_MONTH] = dateOfBirthArr[1]
+            dateOfBirthMap[Constants.KEY_DAY] = dateOfBirthArr[2]
+            true
+        } else {
+            false
+        }
+    }
+
+    fun getDateOfBirthMap(): MutableMap<String, Int?> = dateOfBirthMap
 }
