@@ -34,39 +34,58 @@ class Profile(val bundle: Bundle?) : Fragment() {
         val occupationText = viewLayout.profile_occupation_text
         val descriptionText = viewLayout.profile_desc_text
 
-        if (bundle != null) {
-            val nameAgeStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_NAME)) {
-                val name = bundle.getString(Constants.KEY_NAME)
-                nameAgeStr.append(name)
+        nameAgeText.text = getNameAgeStr(bundle)
+        occupationText.text = getOccupationStr(bundle)
+        descriptionText.text = getDescriptionStr(bundle)
 
-                if (bundle.containsKey(Constants.KEY_AGE)) {
-                    val age = bundle.getString(Constants.KEY_AGE)
-                    nameAgeStr.append(", ")
-                    nameAgeStr.append(age)
-                }
-
-                nameAgeText.text = nameAgeStr
-            }
-
-            val occupationStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_OCCUPATION)) {
-                val occupation = bundle.getString(Constants.KEY_OCCUPATION)
-                occupationStr.append(occupation)
-
-                occupationText.text = occupationStr
-            }
-
-            val descriptionStr = StringBuilder()
-            if (bundle.containsKey(Constants.KEY_DESCRIPTION)) {
-                val description = bundle.getString(Constants.KEY_DESCRIPTION)
-                descriptionStr.append(description)
-
-                descriptionText.text = descriptionStr
-            }
-        }
         // Inflate the layout for this fragment
         return viewLayout
     }
 
+    internal fun getNameAgeStr(bundle: Bundle?): CharSequence? {
+        return if (bundle != null &&
+            bundle.containsKey(Constants.KEY_NAME) &&
+            bundle.containsKey(Constants.KEY_AGE)) {
+            val nameAgeStr = StringBuilder()
+
+            val name = bundle.getString(Constants.KEY_NAME)
+            nameAgeStr.append(name)
+
+
+            val age = bundle.getString(Constants.KEY_AGE)
+            nameAgeStr.append(", ")
+            nameAgeStr.append(age)
+
+            nameAgeStr
+
+        } else {
+            "Error, could not get name age string"
+        }
+    }
+
+    internal fun getOccupationStr(bundle: Bundle?): CharSequence? {
+        return if (bundle != null &&
+            bundle.containsKey(Constants.KEY_OCCUPATION)) {
+            val occupationStr = StringBuilder()
+            val occupation = bundle.getString(Constants.KEY_OCCUPATION)
+            occupationStr.append(occupation)
+
+            occupationStr
+        } else {
+            "Error, could not get occupation string"
+        }
+    }
+
+    internal fun getDescriptionStr(bundle: Bundle?): CharSequence? {
+        return if (bundle != null &&
+            bundle.containsKey(Constants.KEY_DESCRIPTION)) {
+            val descriptionStr = StringBuilder()
+            val description = bundle.getString(Constants.KEY_DESCRIPTION)
+            descriptionStr.append(description)
+
+            descriptionStr
+        } else {
+            "Error, could not get description string"
+        }
+    }
 }

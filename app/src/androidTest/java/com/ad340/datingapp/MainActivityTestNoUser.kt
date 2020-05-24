@@ -13,6 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.Assert.assertEquals
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
@@ -26,6 +27,13 @@ class MainActivityTestNoUser {
 
     @Before
     fun init() {
+        val firebaseAuthFromGetter = FirebaseAuthGetter.firebaseAuth
+        val newFirebaseAuthInstance = FirebaseAuth.getInstance()
+//        assertEquals(
+//            "Failure - firebase auths should match",
+//            firebaseAuthFromGetter,
+//            newFirebaseAuthInstance)
+
         firebaseAuth = mock(FirebaseAuth::class.java)
 
         FirebaseAuthGetter.firebaseAuth = firebaseAuth
