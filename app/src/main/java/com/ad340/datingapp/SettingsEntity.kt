@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "settings_table")
 class SettingsEntity (
     @PrimaryKey val uid: String,
-    val gender: String,
-    val isPublic: Boolean,
-    val ageRange: IntArray,
-    val maximumSearchDistance: Int
+    var gender: String,
+    var isPublic: Boolean,
+    var minAge: Int,
+    var maxAge: Int,
+    var maximumSearchDistance: Int
 )
