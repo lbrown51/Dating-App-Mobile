@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.*
@@ -135,6 +136,44 @@ class ProfileActivityTest {
             withRecyclerView(R.id.matches_recycler_view)
                 ?.atPositionOnView(0, R.id.match_like_button)
         )
+            .perform(click())
+    }
+
+    @Test
+    fun settingsPageIsDisplayedCorrectly() {
+        onView(withText("Settings"))
+            .perform(click())
+
+        onView(withId(R.id.is_public_switch))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.gender_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.minimum_age_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.maximum_age_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.maximum_search_distance_slider))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun canEnterSettings() {
+        onView(withText("Settings"))
+            .perform(click())
+
+        onView(withId(R.id.is_public_switch))
+            .perform(click())
+
+        onView(withId(R.id.gender_edit_text))
+            .perform(typeText("Gender Power"))
+
+        onView(withId(R.id.minimum_age_edit_text))
+            .perform(typeText("20"))
+
+        onView(withId(R.id.maximum_age_edit_text))
+            .perform(typeText("30"))
+
+        onView(withText("Profile"))
             .perform(click())
     }
 
