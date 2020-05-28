@@ -36,7 +36,7 @@ class Matches : Fragment() {
         view.matches_recycler_view.addItemDecoration(MatchesItemDecoration(largePadding, smallPadding))
 
         val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
-        firebaseMatchViewModel.getMatches().observe(this, Observer { matchList ->
+        firebaseMatchViewModel.getMatches().observe(viewLifecycleOwner, Observer { matchList ->
             matchList?.let { adapter.setMatchList(it) }
         })
 

@@ -4,16 +4,21 @@ import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 
 @RunWith(AndroidJUnit4::class)
 class ProfileActivityTest {
@@ -29,6 +34,7 @@ class ProfileActivityTest {
             "the west indies, slayed the generals of the world, and never worried about anything. " +
             "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
             "the remains of my fallen foes. Have no fear, or have fear, because I am here."
+    private lateinit var firebaseAuth: FirebaseAuth
 
 
     @Before
@@ -39,6 +45,16 @@ class ProfileActivityTest {
         intent.putExtra(Constants.KEY_AGE, testAge)
         intent.putExtra(Constants.KEY_OCCUPATION, testOccupation)
         intent.putExtra(Constants.KEY_DESCRIPTION, testDescription)
+
+        val firebaseAuthFromGetter = FirebaseAuthGetter.firebaseAuth
+        val newFirebaseAuthInstance = FirebaseAuth.getInstance()
+
+        firebaseAuth = mock(FirebaseAuth::class.java)
+
+        FirebaseAuthGetter.firebaseAuth = firebaseAuth
+        `when`(firebaseAuth.currentUser).thenReturn(mock(FirebaseUser::class.java))
+        `when`(firebaseAuth.currentUser!!.uid).thenReturn("TestUid")
+
 
         activityRule.launchActivity(intent)
     }
@@ -79,8 +95,8 @@ class ProfileActivityTest {
 
         onView(withText("Settings"))
             .perform(click())
-        onView(withId(R.id.settings_hello_text))
-            .check(matches(withText(R.string.hello_blank_fragment)))
+//        onView(withId(R.id.settings_hello_text))
+//            .check(matches(withText(R.string.hello_blank_fragment)))
 
         onView(withText("Profile"))
             .perform(click())
@@ -120,6 +136,44 @@ class ProfileActivityTest {
             withRecyclerView(R.id.matches_recycler_view)
                 ?.atPositionOnView(0, R.id.match_like_button)
         )
+            .perform(click())
+    }
+
+    @Test
+    fun settingsPageIsDisplayedCorrectly() {
+        onView(withText("Settings"))
+            .perform(click())
+
+        onView(withId(R.id.is_public_switch))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.gender_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.minimum_age_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.maximum_age_edit_text))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.maximum_search_distance_slider))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun canEnterSettings() {
+        onView(withText("Settings"))
+            .perform(click())
+
+        onView(withId(R.id.is_public_switch))
+            .perform(click())
+
+        onView(withId(R.id.gender_edit_text))
+            .perform(typeText("Gender Power"))
+
+        onView(withId(R.id.minimum_age_edit_text))
+            .perform(typeText("20"))
+
+        onView(withId(R.id.maximum_age_edit_text))
+            .perform(typeText("30"))
+
+        onView(withText("Profile"))
             .perform(click())
     }
 

@@ -38,4 +38,11 @@
     <string name="you_liked">You liked %1$s</string>
     <string name="you_unliked">You unliked %1$s</string>
     <string name="sign_in">Sign In</string>
+    <string name="make_account_public">Make account public</string>
+    <string name="choose_your_gender">Choose your gender</string>
+    <string name="gender">gender</string>
+    <string name="max_distance">Maximum Distance</string>
+    <string name="maximum_age">Maximum Age</string>
+    <string name="minimum_age">Minimum Age</string>
+    <string name="choose_age_range">Choose Age Range</string>
 </resources>
