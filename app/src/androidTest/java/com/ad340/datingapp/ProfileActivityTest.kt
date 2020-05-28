@@ -10,10 +10,14 @@ import androidx.test.espresso.contrib.RecyclerViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 
 @RunWith(AndroidJUnit4::class)
 class ProfileActivityTest {
@@ -29,6 +33,7 @@ class ProfileActivityTest {
             "the west indies, slayed the generals of the world, and never worried about anything. " +
             "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
             "the remains of my fallen foes. Have no fear, or have fear, because I am here."
+    private lateinit var firebaseAuth: FirebaseAuth
 
 
     @Before
@@ -39,6 +44,16 @@ class ProfileActivityTest {
         intent.putExtra(Constants.KEY_AGE, testAge)
         intent.putExtra(Constants.KEY_OCCUPATION, testOccupation)
         intent.putExtra(Constants.KEY_DESCRIPTION, testDescription)
+
+        val firebaseAuthFromGetter = FirebaseAuthGetter.firebaseAuth
+        val newFirebaseAuthInstance = FirebaseAuth.getInstance()
+
+        firebaseAuth = mock(FirebaseAuth::class.java)
+
+        FirebaseAuthGetter.firebaseAuth = firebaseAuth
+        `when`(firebaseAuth.currentUser).thenReturn(mock(FirebaseUser::class.java))
+        `when`(firebaseAuth.currentUser!!.uid).thenReturn("TestUid")
+
 
         activityRule.launchActivity(intent)
     }
