@@ -37,6 +37,9 @@ class SettingsFragment : Fragment() {
                 profileSettings = settings
                 view.is_public_switch.isChecked = settings.isPublic
                 view.gender_edit_text.setText(settings.gender)
+                view.minimum_age_edit_text.setText(settings.minAge.toString())
+                view.maximum_age_edit_text.setText(settings.maxAge.toString())
+                view.maximum_search_distance_slider.value = settings.maximumSearchDistance.toFloat()
             } else {
                 val auth = FirebaseAuthGetter.firebaseAuth!!
                 val currentUser = auth.currentUser
@@ -63,12 +66,31 @@ class SettingsFragment : Fragment() {
             settingsViewModel.update(profileSettings)
         }
 
+        view.maximum_search_distance_slider.setOnFocusChangeListener { _, _ ->
+            profileSettings = updateSettings(view, profileSettings)
+            settingsViewModel.update(profileSettings)
+        }
+
+        view.minimum_age_edit_text.setOnFocusChangeListener { _: View, _: Boolean ->
+            profileSettings = updateSettings(view, profileSettings)
+            settingsViewModel.update(profileSettings)
+        }
+
+        view.maximum_age_edit_text.setOnFocusChangeListener { _: View, _: Boolean ->
+            profileSettings = updateSettings(view, profileSettings)
+            settingsViewModel.update(profileSettings)
+        }
+
         return view
     }
 
     private fun updateSettings(view: View, profileSettings: SettingsEntity): SettingsEntity {
         profileSettings.isPublic = view.is_public_switch.isChecked
         profileSettings.gender = view.gender_edit_text.text.toString()
+        profileSettings.minAge = view.minimum_age_edit_text.text.toString().toInt()
+        profileSettings.maxAge = view.maximum_age_edit_text.text.toString().toInt()
+        profileSettings.maximumSearchDistance = view.maximum_search_distance_slider.value.toInt()
+        
         return profileSettings
     }
 }
