@@ -10,5 +10,6 @@ class SettingsEntity (
     var isPublic: Boolean,
     var minAge: Int,
     var maxAge: Int,
-    var maximumSearchDistance: Int
+    var maximumSearchDistance: Int,
+    var dailyMatchReminderTimeStr: String
 )

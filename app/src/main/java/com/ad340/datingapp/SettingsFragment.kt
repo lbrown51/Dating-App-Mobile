@@ -1,15 +1,19 @@
 package com.ad340.datingapp
 
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
+import android.widget.TextView
+import android.widget.TimePicker
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -40,6 +44,10 @@ class SettingsFragment : Fragment() {
                 view.minimum_age_edit_text.setText(settings.minAge.toString())
                 view.maximum_age_edit_text.setText(settings.maxAge.toString())
                 view.maximum_search_distance_slider.value = settings.maximumSearchDistance.toFloat()
+
+                if (!settings.dailyMatchReminderTimeStr.equals("0:00 AM")) {
+                    view.daily_matches_reminder_btn.text = settings.dailyMatchReminderTimeStr
+                }
             } else {
                 val auth = FirebaseAuthGetter.firebaseAuth!!
                 val currentUser = auth.currentUser
@@ -49,7 +57,8 @@ class SettingsFragment : Fragment() {
                     isPublic = false,
                     minAge = 18,
                     maxAge = 30,
-                    maximumSearchDistance = 10
+                    maximumSearchDistance = 10,
+                    dailyMatchReminderTimeStr = "0:00 AM"
                 )
                 settingsViewModel.insert(newSettings)
                 profileSettings = newSettings
@@ -81,8 +90,37 @@ class SettingsFragment : Fragment() {
             settingsViewModel.update(profileSettings)
         }
 
+        val calendar = Calendar.getInstance()
+        val timeString = StringBuilder()
+        val dailyMatchReminderBtn = view.daily_matches_reminder_btn
+        val time = onTimeSetListener(calendar, timeString, dailyMatchReminderBtn)
+
+
+        view.daily_matches_reminder_btn.setOnClickListener {
+            TimePickerDialog(
+                context, time,
+                calendar[Calendar.HOUR_OF_DAY],
+                calendar[Calendar.MINUTE],
+                false).show()
+        }
+
         return view
     }
+
+    private fun onTimeSetListener(
+        calendar: Calendar, timeString: java.lang.StringBuilder, v: TextView
+    ): OnTimeSetListener? {
+        return OnTimeSetListener { _: TimePicker?, hourOfDay: Int, minute: Int ->
+            calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+            calendar[Calendar.MINUTE] = minute
+            val sdf =
+                SimpleDateFormat("h:mm a", Locale.US)
+            timeString.setLength(0)
+            timeString.append(sdf.format(calendar.time))
+            v.text = timeString
+        }
+    }
+
 
     private fun updateSettings(view: View, profileSettings: SettingsEntity): SettingsEntity {
         profileSettings.isPublic = view.is_public_switch.isChecked
@@ -90,6 +128,7 @@ class SettingsFragment : Fragment() {
         profileSettings.minAge = view.minimum_age_edit_text.text.toString().toInt()
         profileSettings.maxAge = view.maximum_age_edit_text.text.toString().toInt()
         profileSettings.maximumSearchDistance = view.maximum_search_distance_slider.value.toInt()
+        profileSettings.dailyMatchReminderTimeStr = view.daily_matches_reminder_btn.text.toString()
         
         return profileSettings
     }
