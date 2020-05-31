@@ -40,9 +40,16 @@ class SettingsFragment : Fragment() {
             if (settings != null) {
                 profileSettings = settings
                 view.is_public_switch.isChecked = settings.isPublic
+
                 view.gender_edit_text.setText(settings.gender)
+                view.gender_edit_text.setSelection(settings.gender.length)
+
                 view.minimum_age_edit_text.setText(settings.minAge.toString())
+                view.minimum_age_edit_text.setSelection(settings.minAge.toString().length)
+
                 view.maximum_age_edit_text.setText(settings.maxAge.toString())
+                view.maximum_age_edit_text.setSelection(settings.maxAge.toString().length)
+
                 view.maximum_search_distance_slider.value = settings.maximumSearchDistance.toFloat()
 
                 if (!settings.dailyMatchReminderTimeStr.equals("0:00 AM")) {
