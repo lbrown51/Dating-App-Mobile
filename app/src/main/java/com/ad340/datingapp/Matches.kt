@@ -25,17 +25,18 @@ class Matches : Fragment() {
         // Get view
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
 
+        val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
+
         // Set up the RecyclerView
         view.matches_recycler_view.setHasFixedSize(true)
         view.matches_recycler_view.layoutManager = LinearLayoutManager(context)
 
-        val adapter = MatchCardAdapter(context!!)
+        val adapter = MatchCardAdapter(context!!, firebaseMatchViewModel)
         view.matches_recycler_view.adapter = adapter
         val largePadding = resources.getDimensionPixelSize(R.dimen.item_spacing)
         val smallPadding = resources.getDimensionPixelSize(R.dimen.small_item_spacing)
         view.matches_recycler_view.addItemDecoration(MatchesItemDecoration(largePadding, smallPadding))
 
-        val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
         firebaseMatchViewModel.getMatches().observe(viewLifecycleOwner, Observer { matchList ->
             matchList?.let { adapter.setMatchList(it) }
         })

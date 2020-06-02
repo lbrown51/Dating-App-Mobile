@@ -8,6 +8,8 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_card.view.*
@@ -16,27 +18,35 @@ import kotlinx.android.synthetic.main.match_card.view.*
  * Adapter used to show a list of card matches.
  */
 class MatchCardAdapter internal constructor(
-    context: Context
+    context: Context,
+    val matchViewModel: FirebaseMatchViewModel
 ): RecyclerView.Adapter<MatchCardAdapter.MatchCardViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var matchList = emptyList<MatchItem>()
+
+
 
     inner class MatchCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var matchImage: ImageView = itemView.findViewById(R.id.match_card_image)
         var matchName: TextView = itemView.findViewById(R.id.match_card_name)
         var matchIsLiked: CheckBox = itemView.findViewById(R.id.match_like_button)
-
+        var it = itemView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchCardViewHolder {
         val layoutView = inflater.inflate(R.layout.match_card, parent, false)
 
+
         layoutView.match_like_button.setOnClickListener {
             val matchName = layoutView.match_card_name.text
+            val liked = (it as CheckBox).isChecked
+            val uid = layoutView.tag as String
 
-            val toastStr: String = if ((it as CheckBox).isChecked) {
+            matchViewModel.updateMatchLikeStatus(uid, liked)
+
+            val toastStr: String = if (liked) {
                 String.format(layoutView.resources.getString(R.string.you_liked), matchName)
             } else {
                 String.format(layoutView.resources.getString(R.string.you_unliked), matchName)
@@ -54,6 +64,7 @@ class MatchCardAdapter internal constructor(
             Picasso.get().load(match.imageUrl).into(holder.matchImage)
             holder.matchName.text = match.name
             holder.matchIsLiked.isChecked = match.liked
+            holder.it.tag = match.uid
         }
     }
 

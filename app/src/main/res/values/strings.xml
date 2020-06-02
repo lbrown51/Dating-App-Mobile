@@ -45,4 +45,5 @@
     <string name="maximum_age">Maximum Age</string>
     <string name="minimum_age">Minimum Age</string>
     <string name="choose_age_range">Choose Age Range</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

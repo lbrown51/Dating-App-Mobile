@@ -34,4 +34,8 @@ class FirebaseMatchViewModel: ViewModel() {
 
         return matches
     }
+
+    fun updateMatchLikeStatus(uid: String, liked: Boolean) {
+        matchModel.updateMatchLikeStatus(uid, liked)
+    }
 }

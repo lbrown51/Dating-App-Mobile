@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -109,6 +110,12 @@ class SettingsFragment : Fragment() {
                 calendar[Calendar.HOUR_OF_DAY],
                 calendar[Calendar.MINUTE],
                 false).show()
+        }
+
+        view.save_settings_btn.setOnClickListener {
+            profileSettings = updateSettings(view, profileSettings)
+            settingsViewModel.update(profileSettings)
+            Toast.makeText(context, "Changes have been saved", Toast.LENGTH_SHORT).show()
         }
 
         return view
