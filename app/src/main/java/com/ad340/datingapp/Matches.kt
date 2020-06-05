@@ -28,6 +28,7 @@ class Matches : Fragment() {
     private lateinit var locationManager: LocationManager
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var profileSettings: SettingsEntity
+    private lateinit var matchList: List<MatchItem>
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
 
@@ -39,7 +40,8 @@ class Matches : Fragment() {
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
 
         val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
-        setupSettings()
+        val adapter = MatchCardAdapter(context!!, firebaseMatchViewModel)
+        setupSettings(adapter)
 
         locationManager = this.activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -47,7 +49,6 @@ class Matches : Fragment() {
         view.matches_recycler_view.setHasFixedSize(true)
         view.matches_recycler_view.layoutManager = LinearLayoutManager(context)
 
-        val adapter = MatchCardAdapter(context!!, firebaseMatchViewModel)
         view.matches_recycler_view.adapter = adapter
         val largePadding = resources.getDimensionPixelSize(R.dimen.item_spacing)
         val smallPadding = resources.getDimensionPixelSize(R.dimen.small_item_spacing)
@@ -57,6 +58,7 @@ class Matches : Fragment() {
         val hasCoarsePermission = ActivityCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
         firebaseMatchViewModel.getMatches().observe(viewLifecycleOwner, Observer { matchList ->
+            this.matchList = matchList
             if (checkLocation() && (hasFinePermission || hasCoarsePermission)) {
                 val criteria = Criteria()
                 val locationProvider = locationManager.getBestProvider(criteria, false)
@@ -86,7 +88,7 @@ class Matches : Fragment() {
         return view
     }
 
-    private fun setupSettings() {
+    private fun setupSettings(adapter: MatchCardAdapter) {
         // Get view model
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
 
@@ -94,6 +96,38 @@ class Matches : Fragment() {
         settingsViewModel.settings.observe(viewLifecycleOwner, Observer { settings ->
             if (settings != null) {
                 profileSettings = settings
+
+                if (this::matchList.isInitialized) {
+                    val hasFinePermission = ActivityCompat.checkSelfPermission(
+                        context!!,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                    val hasCoarsePermission = ActivityCompat.checkSelfPermission(
+                        context!!,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+
+                    if (checkLocation() && (hasFinePermission || hasCoarsePermission)) {
+                        val criteria = Criteria()
+                        val locationProvider = locationManager.getBestProvider(criteria, false)
+                        val location = locationManager.getLastKnownLocation(locationProvider)
+
+                        val metersToMilesRatio = 1609.34
+
+                        matchList
+                            .filter {
+                                val matchLocation = Location("")
+                                matchLocation.latitude = it.lat.toDouble()
+                                matchLocation.longitude = it.longitude.toDouble()
+                                val distanceFromMatch = location.distanceTo(matchLocation)
+
+                                distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
+                            }
+                            .let {
+                                adapter.setMatchList(it)
+                            }
+                    }
+                }
             }
         })
     }
