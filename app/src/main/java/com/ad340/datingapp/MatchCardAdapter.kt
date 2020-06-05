@@ -8,8 +8,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_card.view.*
@@ -24,7 +22,6 @@ class MatchCardAdapter internal constructor(
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var matchList = emptyList<MatchItem>()
-
 
 
     inner class MatchCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -74,5 +71,4 @@ class MatchCardAdapter internal constructor(
         this.matchList = matchList
         notifyDataSetChanged()
     }
-
 }

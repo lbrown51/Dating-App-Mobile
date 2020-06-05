@@ -41,7 +41,6 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
     }
 
     override fun onClick(v: View?) {

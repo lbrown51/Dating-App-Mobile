@@ -6,13 +6,13 @@ data class MatchItem(
     val uid: String,
     val name: String,
     val imageUrl: String,
-//    val lat: String,
-//    val longitude: String,
+    val lat: String,
+    val longitude: String,
     val liked: Boolean
 ): Serializable {
 
     constructor(): this(
-        "", "","", false
+        "", "","", "0", "0", false
     )
 
 }

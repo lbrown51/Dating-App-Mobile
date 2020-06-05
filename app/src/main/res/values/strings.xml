@@ -34,6 +34,12 @@
     <string name="ipsum_lorum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae lectus iaculis, tincidunt orci ac, imperdiet sapien. Aenean tincidunt mauris.</string>
     <string name="match_profile_picture">Match Profile Picture</string>
 
+    <!-- LOCAION INFORMATION -->
+    <string name="enable_location">Enable Location</string>
+    <string name="location_message">Your Locations Settings is set to \'Off\'. Please Enable Location to use this app</string>
+    <string name="location_settings">Location Settings</string>
+    <string name="location_cancel">Cancel</string>
+
     <!-- MATCH INFORMATION   -->
     <string name="you_liked">You liked %1$s</string>
     <string name="you_unliked">You unliked %1$s</string>
