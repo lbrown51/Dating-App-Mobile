@@ -26,6 +26,9 @@ import kotlinx.android.synthetic.main.fragment_matches.view.*
  */
 class Matches : Fragment() {
     private lateinit var locationManager: LocationManager
+    private lateinit var settingsViewModel: SettingsViewModel
+    private lateinit var profileSettings: SettingsEntity
+
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
 
     override fun onCreateView(
@@ -36,6 +39,8 @@ class Matches : Fragment() {
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
 
         val firebaseMatchViewModel = ViewModelProvider(this)[FirebaseMatchViewModel::class.java]
+        setupSettings()
+
         locationManager = this.activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         // Set up the RecyclerView
@@ -65,7 +70,8 @@ class Matches : Fragment() {
                         matchLocation.latitude = it.lat.toDouble()
                         matchLocation.longitude = it.longitude.toDouble()
                         val distanceFromMatch = location.distanceTo(matchLocation)
-                        distanceFromMatch < 15 * metersToMilesRatio
+
+                        distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
                     }
                     .let {
                         adapter.setMatchList(it)
@@ -78,6 +84,18 @@ class Matches : Fragment() {
 
         // Inflate the layout for this fragment
         return view
+    }
+
+    private fun setupSettings() {
+        // Get view model
+        settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
+
+        // Observe the user settings
+        settingsViewModel.settings.observe(viewLifecycleOwner, Observer { settings ->
+            if (settings != null) {
+                profileSettings = settings
+            }
+        })
     }
 
     private fun checkLocation(): Boolean {
