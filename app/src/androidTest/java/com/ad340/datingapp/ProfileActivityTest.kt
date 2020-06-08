@@ -59,6 +59,7 @@ class ProfileActivityTest {
         `when`(firebaseAuth.currentUser!!.uid).thenReturn("TestUid")
 
         locationManager = mock(LocationManager::class.java)
+        LocationManagerGetter.locationManager = locationManager
         val mockLocation = Location("")
         mockLocation.longitude = 47.6009
         mockLocation.latitude = -122.2032
