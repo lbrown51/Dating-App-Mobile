@@ -1,6 +1,8 @@
 package com.ad340.datingapp
 
 import android.content.Intent
+import android.location.Location
+import android.location.LocationManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -35,6 +37,7 @@ class ProfileActivityTest {
             "I like long walks on the beach and a roaring camp fire next to which I shall eat " +
             "the remains of my fallen foes. Have no fear, or have fear, because I am here."
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var locationManager: LocationManager
 
 
     @Before
@@ -54,6 +57,12 @@ class ProfileActivityTest {
         FirebaseAuthGetter.firebaseAuth = firebaseAuth
         `when`(firebaseAuth.currentUser).thenReturn(mock(FirebaseUser::class.java))
         `when`(firebaseAuth.currentUser!!.uid).thenReturn("TestUid")
+
+        locationManager = mock(LocationManager::class.java)
+        val mockLocation = Location("")
+        mockLocation.longitude = 47.6009
+        mockLocation.latitude = -122.2032
+        `when`(locationManager.getLastKnownLocation("")).thenReturn(mockLocation)
 
 
         activityRule.launchActivity(intent)

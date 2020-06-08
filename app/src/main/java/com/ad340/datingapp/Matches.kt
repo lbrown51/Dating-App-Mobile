@@ -43,7 +43,7 @@ class Matches : Fragment() {
         val adapter = MatchCardAdapter(context!!, firebaseMatchViewModel)
         setupSettings(adapter)
 
-        locationManager = this.activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = LocationManagerGetter.getLocationManager(this.activity!!)!!
 
         // Set up the RecyclerView
         view.matches_recycler_view.setHasFixedSize(true)
