@@ -58,13 +58,7 @@ class ProfileActivityTest {
         `when`(firebaseAuth.currentUser).thenReturn(mock(FirebaseUser::class.java))
         `when`(firebaseAuth.currentUser!!.uid).thenReturn("TestUid")
 
-        locationManager = mock(LocationManager::class.java)
-        LocationManagerGetter.locationManager = locationManager
-        val mockLocation = Location("")
-        mockLocation.longitude = 47.6009
-        mockLocation.latitude = -122.2032
-        `when`(locationManager.getLastKnownLocation("")).thenReturn(mockLocation)
-
+        IsTest.isTest = true
 
         activityRule.launchActivity(intent)
     }
@@ -105,8 +99,8 @@ class ProfileActivityTest {
 
         onView(withText("Settings"))
             .perform(click())
-//        onView(withId(R.id.settings_hello_text))
-//            .check(matches(withText(R.string.hello_blank_fragment)))
+        onView(withId(R.id.is_public_layout))
+            .check(matches(isDisplayed()))
 
         onView(withText("Profile"))
             .perform(click())
@@ -120,7 +114,7 @@ class ProfileActivityTest {
     fun matchesAreDisplayed() {
         onView(withText("Matches"))
             .perform(click())
-        Thread.sleep(4000)
+        Thread.sleep(3000)
         onView(withId(R.id.matches_recycler_view))
             .check(matches(isDisplayed()))
 
@@ -134,7 +128,7 @@ class ProfileActivityTest {
     fun canClickLikeButton() {
         onView(withText("Matches"))
             .perform(click())
-        Thread.sleep(4000)
+        Thread.sleep(3000)
         onView(
             withRecyclerView(R.id.matches_recycler_view)
                 ?.atPositionOnView(0, R.id.match_like_button)

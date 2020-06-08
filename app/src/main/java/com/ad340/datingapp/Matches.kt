@@ -43,8 +43,7 @@ class Matches : Fragment() {
         val adapter = MatchCardAdapter(context!!, firebaseMatchViewModel)
         setupSettings(adapter)
 
-        locationManager = LocationManagerGetter.getLocationManager(this.activity!!)!!
-
+        locationManager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // Set up the RecyclerView
         view.matches_recycler_view.setHasFixedSize(true)
         view.matches_recycler_view.layoutManager = LinearLayoutManager(context)
@@ -133,7 +132,7 @@ class Matches : Fragment() {
     }
 
     private fun checkLocation(): Boolean {
-        if (!isLocationEnabled()) {
+        if (!isLocationEnabled() && !IsTest.isTest) {
             showAlert()
         }
         return isLocationEnabled()
