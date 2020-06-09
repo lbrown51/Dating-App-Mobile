@@ -1,2 +1,3 @@
 ignore:
   - "app/src/main/java/com/ad340/datingapp/Constants.kt"  # ignore Constants.java
+  - "app/src/main/java/com/ad340/datingapp/SignInActivity.kt" # ignore SignInActivity

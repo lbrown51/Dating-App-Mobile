@@ -143,7 +143,7 @@ class ProfileActivityTest {
             .perform(click())
     }
 
-    //@Test
+    @Test
     fun settingsPageIsDisplayedCorrectly() {
         onView(withText("Settings"))
             .perform(click())
