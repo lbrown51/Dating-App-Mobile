@@ -65,18 +65,23 @@ class Matches : Fragment() {
 
                 val metersToMilesRatio = 1609.34
 
-                matchList
-                    .filter {
-                        val matchLocation = Location("")
-                        matchLocation.latitude = it.lat.toDouble()
-                        matchLocation.longitude = it.longitude.toDouble()
-                        val distanceFromMatch = location.distanceTo(matchLocation)
+                try {
+                    matchList
+                        .filter {
+                            val matchLocation = Location("")
+                            matchLocation.latitude = it.lat.toDouble()
+                            matchLocation.longitude = it.longitude.toDouble()
+                            val distanceFromMatch = location.distanceTo(matchLocation)
 
-                        distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
-                    }
-                    .let {
-                        adapter.setMatchList(it)
-                    }
+                            distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
+                        }
+                        .let {
+                            adapter.setMatchList(it)
+                        }
+                }
+                catch (e: NullPointerException) {
+                    matchList?.let { adapter.setMatchList(it) }
+                }
             } else {
                 matchList?.let { adapter.setMatchList(it) }
             }
