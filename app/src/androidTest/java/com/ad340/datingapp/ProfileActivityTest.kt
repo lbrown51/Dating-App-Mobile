@@ -90,7 +90,7 @@ class ProfileActivityTest {
             .check(matches(withText(testDescription)))
     }
 
-    //@Test
+    @Test
     fun canSwitchBetweenTabs() {
         onView(withText("Matches"))
             .perform(click())

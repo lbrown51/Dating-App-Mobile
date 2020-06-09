@@ -58,32 +58,38 @@ class Matches : Fragment() {
 
         firebaseMatchViewModel.getMatches().observe(viewLifecycleOwner, Observer { matchList ->
             this.matchList = matchList
-            if (checkLocation() && (hasFinePermission || hasCoarsePermission) && !IsTest.isTest) {
+            if (checkLocation() && (hasFinePermission || hasCoarsePermission)) {
                 val criteria = Criteria()
                 val locationProvider = locationManager.getBestProvider(criteria, false)
-                val location = locationManager.getLastKnownLocation(locationProvider)
+
+                val location = if (!IsTest.isTest) {
+                    locationManager.getLastKnownLocation(locationProvider) as Location
+                } else {
+                    val location: Location = Location("") as Location
+                    location.let {
+                        it.latitude = 47.6009
+                        it.longitude = -122.2032
+                    }
+                    location
+                }
 
                 val metersToMilesRatio = 1609.34
 
-                if (location != null && locationProvider != null) {
-                    try {
-                        matchList
-                            .filter {
-                                val matchLocation = Location("")
-                                matchLocation.latitude = it.lat.toDouble()
-                                matchLocation.longitude = it.longitude.toDouble()
-                                val distanceFromMatch = location.distanceTo(matchLocation)
+                try {
+                    matchList
+                        .filter {
+                            val matchLocation = Location("")
+                            matchLocation.latitude = it.lat.toDouble()
+                            matchLocation.longitude = it.longitude.toDouble()
+                            val distanceFromMatch = location.distanceTo(matchLocation)
 
-                                distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
-                            }
-                            .let {
-                                adapter.setMatchList(it)
-                            }
-                    }
-                    catch (e: NullPointerException) {
-                        matchList?.let { adapter.setMatchList(it) }
-                    }
-                } else {
+                            distanceFromMatch < profileSettings.maximumSearchDistance * metersToMilesRatio
+                        }
+                        .let {
+                            adapter.setMatchList(it)
+                        }
+                }
+                catch (e: NullPointerException) {
                     matchList?.let { adapter.setMatchList(it) }
                 }
             } else {
