@@ -75,7 +75,7 @@ class Matches : Fragment() {
 
                 val metersToMilesRatio = 1609.34
 
-                try {
+                if (this::profileSettings.isInitialized) {
                     matchList
                         .filter {
                             val matchLocation = Location("")
@@ -89,7 +89,7 @@ class Matches : Fragment() {
                             adapter.setMatchList(it)
                         }
                 }
-                catch (e: NullPointerException) {
+                else {
                     matchList?.let { adapter.setMatchList(it) }
                 }
             } else {
