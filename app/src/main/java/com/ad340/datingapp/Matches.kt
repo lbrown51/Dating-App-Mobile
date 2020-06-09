@@ -124,7 +124,17 @@ class Matches : Fragment() {
                     if (checkLocation() && (hasFinePermission || hasCoarsePermission)) {
                         val criteria = Criteria()
                         val locationProvider = locationManager.getBestProvider(criteria, false)
-                        val location = locationManager.getLastKnownLocation(locationProvider)
+
+                        val location = if (!IsTest.isTest) {
+                            locationManager.getLastKnownLocation(locationProvider) as Location
+                        } else {
+                            val location: Location = Location("") as Location
+                            location.let {
+                                it.latitude = 47.6009
+                                it.longitude = -122.2032
+                            }
+                            location
+                        }
 
                         val metersToMilesRatio = 1609.34
 
