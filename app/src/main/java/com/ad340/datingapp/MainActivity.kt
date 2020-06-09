@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        auth = FirebaseAuthGetter.firebaseAuth!!
-//        val currentUser = auth.currentUser
-//        if (currentUser == null) {
-//            intent = Intent(this, SignInActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        auth = FirebaseAuthGetter.firebaseAuth!!
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
