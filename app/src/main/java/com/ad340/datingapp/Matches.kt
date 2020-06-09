@@ -58,7 +58,7 @@ class Matches : Fragment() {
 
         firebaseMatchViewModel.getMatches().observe(viewLifecycleOwner, Observer { matchList ->
             this.matchList = matchList
-            if (checkLocation() && (hasFinePermission || hasCoarsePermission)) {
+            if (checkLocation() && (hasFinePermission || hasCoarsePermission) && !IsTest.isTest) {
                 val criteria = Criteria()
                 val locationProvider = locationManager.getBestProvider(criteria, false)
                 val location = locationManager.getLastKnownLocation(locationProvider)
